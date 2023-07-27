@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import HeaderComponent from '../../components/HeaderComponent';
 import { colors } from '../utils';
 import { fonts } from '../../utils';
+import { HeaderComponent } from '../../components';
 
 export default class Home extends Component {
   render() {

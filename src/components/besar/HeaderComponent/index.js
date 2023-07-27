@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, Text } from 'react-native';
-import { colors, fonts, responsiveHeight } from '../../utils';
-import { IconLogout, IconUserLog } from '../../assets';
-import { Jarak } from '../kecil';
+import { colors, fonts, responsiveHeight } from '../../../utils';
+import { IconLogout, IconUserLog } from '../../../assets';
+import { Jarak } from '../../kecil';
 
 
 
