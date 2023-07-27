@@ -1,7 +1,7 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {EditProfile, Home, Kontak, Profile, Splash} from '../pages';
+import {EditProfile, Home, Kontak, Login, Profile, Splash} from '../pages';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BottomNavigator} from '../components';
 import ChangePassword from '../pages/ChangePassword';
@@ -49,6 +49,11 @@ const Route = () => {
         name="ChangePassword"
         component={ChangePassword}
         options={{title: 'Change Password'}}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );

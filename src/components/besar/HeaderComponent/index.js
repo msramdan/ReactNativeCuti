@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TextInput, Text } from 'react-native';
+import { StyleSheet, View, TextInput, Text, TouchableOpacity } from 'react-native';
 import { colors, fonts, responsiveHeight } from '../../../utils';
 import { IconLogout, IconUserLog } from '../../../assets';
 import { Jarak } from '../../kecil';
-
-
 
 export default class HeaderComponent extends Component {
   render() {
@@ -17,13 +15,13 @@ export default class HeaderComponent extends Component {
             <Text style={styles.welcome}> Selamat datang, </Text>
             <Text style={styles.welcome}> Muhammad Saeful Ramdan, </Text>
           </View>
-          {/* <Jarak width={60} /> */}
+
           <View style={styles.logoutSection}>
             <Text style={styles.logout}> Logout</Text>
-            <IconLogout />
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+              <IconLogout />
+            </TouchableOpacity>
           </View>
-          
-          
         </View>
       </View>
     );
@@ -59,7 +57,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 14,
     paddingRight: 5,
-
   },
   input: {
     fontSize: 16,
