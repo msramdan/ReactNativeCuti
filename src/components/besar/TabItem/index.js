@@ -1,8 +1,7 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { IconHome, IconHomeWhite, IconShirt, IconShirtWhite, IconUser, IconUserWhite } from '../../../assets';
+import { IconHome, IconHomeWhite, IconPhone, IconPhoneWhite, IconUser, IconUserWhite } from '../../../assets';
 import { colors } from '../../../utils';
-
 
 
 const TabItem = ({ isFocused, onPress, onLongPress, label }) => {
@@ -11,8 +10,8 @@ const TabItem = ({ isFocused, onPress, onLongPress, label }) => {
             return isFocused ? <IconHomeWhite /> : <IconHome />
         }
 
-        if (label === 'Jersey') {
-            return isFocused ? <IconShirtWhite /> : <IconShirt />
+        if (label === 'Kontak Masukan') {
+            return isFocused ? <IconPhoneWhite /> : <IconPhone />
         }
 
         if (label === 'Profile') {

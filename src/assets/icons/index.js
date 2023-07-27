@@ -1,9 +1,9 @@
 import IconHome from './home.svg';
 import IconUser from './user.svg';
-import IconShirt from './shirt.svg';
+import IconPhone from './mail.svg';
 import IconHomeWhite from './home-white.svg';
 import IconUserWhite from './user-white.svg';
-import IconShirtWhite from './shirt-white.svg';
+import IconPhoneWhite from './mail-white.svg';
 
 
-export { IconHome, IconUser, IconShirt, IconHomeWhite, IconUserWhite, IconShirtWhite }
+export { IconHome, IconUser, IconPhone, IconHomeWhite, IconUserWhite, IconPhoneWhite }

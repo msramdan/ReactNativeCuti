@@ -2,6 +2,8 @@ import { View, StyleSheet } from 'react-native';
 import TabItem from '../TabItem';
 import { colors } from '../../../utils';
 
+TabItem
+
 const BottomNavigator = ({ state, descriptors, navigation }) => {
     return (
         <View style={styles.container}>
@@ -38,6 +40,7 @@ const BottomNavigator = ({ state, descriptors, navigation }) => {
 
                 return (
                     <TabItem
+                        key={index}
                         label={label}
                         isFocused={isFocused}
                         onLongPress={onLongPress}
