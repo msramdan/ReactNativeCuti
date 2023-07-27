@@ -6,6 +6,10 @@ import IconUserWhite from './user-white.svg';
 import IconPhoneWhite from './mail-white.svg';
 import IconUserLog from './user-log.svg';
 import IconLogout from './logout.svg';
+import IconArrowRight from './arrow-right.svg';
+import IconBack from './arrow-left.svg'
+import IconChangePassword from './change-password.svg'
+import IconEditProfile from './user-edit.svg'
 
 
 export {
@@ -16,5 +20,9 @@ export {
     IconUserWhite,
     IconUserLog,
     IconPhoneWhite,
-    IconLogout
+    IconLogout,
+    IconArrowRight,
+    IconBack,
+    IconChangePassword,
+    IconEditProfile,
 }

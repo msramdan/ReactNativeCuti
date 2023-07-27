@@ -1,3 +1,4 @@
 import Jarak from "./Jarak";
-export {Jarak};
+import CardMenu from './CardMenu';
+export {Jarak,CardMenu};
 
