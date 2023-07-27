@@ -10,6 +10,10 @@ import IconArrowRight from './arrow-right.svg';
 import IconBack from './arrow-left.svg'
 import IconChangePassword from './change-password.svg'
 import IconEditProfile from './user-edit.svg'
+import IconKeranjangPutih from './keranjang-putih.svg'
+import IconHapus from './hapus.svg'
+import IconSubmit from './submit.svg'
+
 
 
 export {
@@ -25,4 +29,7 @@ export {
     IconBack,
     IconChangePassword,
     IconEditProfile,
+    IconKeranjangPutih,
+    IconHapus,
+    IconSubmit
 }
