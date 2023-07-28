@@ -10,7 +10,6 @@ import { ListMenu } from '../../components';
 export default class Profile extends Component {
   constructor(props) {
     super(props)
-  
     this.state = {
        profile: dummyProfile,
        menus: dummyMenu

@@ -1,14 +1,52 @@
-import React, { Component } from 'react'
-import { Text, StyleSheet, View } from 'react-native'
-
+import React, {Component} from 'react';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {colors, responsiveHeight, fonts} from '../../utils';
+import {Inputan, Tombol, HeaderComponent} from '../../components';
+import {dummyProfile} from '../../data';
 export default class Kontak extends Component {
-    render() {
-        return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Kontak Screen</Text>
-            </View>
-        );
-    }
-}
+  constructor(props) {
+    super(props);
+    this.state = {
+      profile: dummyProfile,
+    };
+  }
 
-const styles = StyleSheet.create({})
+  render() {
+    const {navigation} = this.props;
+    const {profile} = this.state;
+    return (
+      <View>
+          <HeaderComponent navigation={navigation} />
+        <View style={styles.form} >
+        <View>
+          <Inputan label="NIK" value={profile.nama} />
+          <Inputan label="Nama" value={profile.nama} />
+          <Inputan label="Judul" />
+          <Inputan label="Deskripsi" textarea />
+        </View>
+        <View style={styles.submit}>
+          <Tombol
+            title="Submit"
+            type="textIcon"
+            icon="submit"
+            padding={responsiveHeight(15)}
+            fontSize={18}
+          />
+        </View>
+        </View>
+        
+      </View>
+    );
+  }
+}
+const styles = StyleSheet.create({
+  form: {
+    backgroundColor: colors.white,
+    paddingHorizontal: 30,
+    paddingTop: 10,
+  },
+  
+  submit: {
+    marginVertical: 30,
+  },
+});
