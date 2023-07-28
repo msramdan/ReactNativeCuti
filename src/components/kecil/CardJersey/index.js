@@ -5,13 +5,11 @@ import Tombol from '../Tombol';
 
 const CardJersey = ({jersey, navigation}) => {
   return (
-    <View style={styles.container}>
+    <View>
       <TouchableOpacity style={styles.card}>
         <Image source={jersey.gambar[0]} style={styles.gambar} />
         <Text style={styles.text}>{jersey.nama}</Text>
       </TouchableOpacity>
-
-      <Tombol type="text" title="Detail" padding={7} onPress={() => navigation.navigate('JerseyDetail', { jersey }) }/>
     </View>
   );
 };
@@ -19,24 +17,21 @@ const CardJersey = ({jersey, navigation}) => {
 export default CardJersey;
 
 const styles = StyleSheet.create({
-    container: {
-        marginBottom: 25
-    },
     card: {
         backgroundColor: colors.yellow,
         width: responsiveWidth(150),
         alignItems: 'center',
-        padding: 10,
+        padding: 5,
         borderRadius: 10,
         marginBottom: 10
     },
     gambar: {
-        width: 124,
-        height: 124
+        width: 110,
+        height: 110
     },
     text: {
         fontFamily: fonts.primary.bold,
-        fontSize: 13,
+        fontSize: 15,
         textTransform: 'capitalize',
         textAlign: 'center'
     }
