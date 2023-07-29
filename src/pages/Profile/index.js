@@ -5,9 +5,9 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { heightMobileUI } from '../../utils/constant';
 import { dummyMenu, dummyProfile } from '../../data';
 import { ListMenu } from '../../components';
-
-
-export default class Profile extends Component {
+import { getUser } from '../../actions/UserAction';
+import {connect} from 'react-redux';
+class Profile extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -15,24 +15,35 @@ export default class Profile extends Component {
        menus: dummyMenu
     }
   }
+
+  componentDidMount() {
+    this.props.dispatch(getUser());
+  }
   
   render() {
     const { profile, menus } = this.state
+    const { navigation,dataUser } = this.props;
     return (
       <View style={styles.page}>
         <View style={styles.container}>
           <Image source={profile.avatar} style={styles.foto} />
           <View style={styles.profile}>
-            <Text style={styles.nama}>{profile.nama}</Text>
-            <Text style={styles.desc}>No. HP : {profile.nomerHp}</Text>
-            <Text style={styles.desc}>{profile.alamat} {profile.kota}</Text>
+            <Text style={styles.nama}>{dataUser.nama_karyawan}</Text>
+            <Text style={styles.desc}>No. HP : {dataUser.no_hp}</Text>
+            <Text style={styles.desc}>{profile.alamat} {dataUser.alamat}</Text>
           </View>
-          <ListMenu menus={menus} navigation={this.props.navigation}/>
+          <ListMenu menus={menus} navigation={navigation}/>
         </View>
       </View>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  dataUser: state.UserReducer.dataUser,
+});
+
+export default connect(mapStateToProps, null)(Profile);
 
 const styles = StyleSheet.create({
   page: {
