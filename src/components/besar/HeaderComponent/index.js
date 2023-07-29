@@ -2,18 +2,26 @@ import React, { Component } from 'react';
 import { StyleSheet, View, TextInput, Text, TouchableOpacity } from 'react-native';
 import { colors, fonts, responsiveHeight } from '../../../utils';
 import { IconLogout, IconUserLog } from '../../../assets';
-import { Jarak } from '../../kecil';
+import {connect} from 'react-redux';
+import { getUser } from '../../../actions/UserAction';
 
-export default class HeaderComponent extends Component {
+class HeaderComponent extends Component {
+
+  componentDidMount() {
+    this.props.dispatch(getUser());
+  }
+
   render() {
-    const { navigation } = this.props;
+    const { navigation,dataUser } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.wrapperHeader}>
           <IconUserLog />
           <View style={styles.welcomSection}>
             <Text style={styles.welcome}> Selamat datang, </Text>
-            <Text style={styles.welcome}> Muhammad Saeful Ramdan, </Text>
+            <Text style={styles.welcome}>
+            {dataUser.nama_karyawan}
+            </Text>
           </View>
 
           <View style={styles.logoutSection}>
@@ -27,6 +35,11 @@ export default class HeaderComponent extends Component {
     );
   }
 }
+const mapStateToProps = (state) => ({
+  dataUser: state.UserReducer.dataUser,
+});
+
+export default connect(mapStateToProps, null)(HeaderComponent);
 
 const styles = StyleSheet.create({
   container: {

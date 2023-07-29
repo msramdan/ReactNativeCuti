@@ -5,8 +5,9 @@ import { HeaderComponent } from '../../components';
 import BannerSlider from '../../components/besar/BannerSlider';
 import ListJerseys from '../../components/besar/ListJerseys';
 import { dummyJerseys } from '../../data';
+import { connect } from 'react-redux';
 
-export default class Home extends Component {
+class Home extends Component {
 
   constructor(props) {
     super(props);
@@ -29,6 +30,8 @@ export default class Home extends Component {
     );
   }
 }
+
+export default connect()(Home)
 
 const styles = StyleSheet.create({
   page: {flex: 1, backgroundColor: colors.white},
