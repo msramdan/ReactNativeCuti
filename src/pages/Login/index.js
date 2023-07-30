@@ -17,7 +17,6 @@ class Login extends Component {
 
   login = () => {
     const {nik, password} = this.state;
-
     if (nik && password) {
       //action
       this.props.dispatch(loginUser(nik, password));

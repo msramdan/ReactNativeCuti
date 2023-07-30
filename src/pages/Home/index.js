@@ -44,7 +44,7 @@ class Home extends Component {
     return (
       <View style={styles.page}>
         <HeaderComponent navigation={navigation} />
-        {/* <BannerSlider /> */}
+        <BannerSlider />
         <View style={styles.pilihJersey}>
           <ListJerseys jerseys={jerseys} navigation={navigation} />
         </View>

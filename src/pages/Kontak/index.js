@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, View,Alert} from 'react-native';
 import {colors, responsiveHeight, fonts, getData} from '../../utils';
 import {Inputan, Tombol, HeaderComponent} from '../../components';
 import {connect} from 'react-redux';
+import { storeKontak } from '../../actions/KontakAction';
+
 class Kontak extends Component {
   constructor(props) {
     super(props);
@@ -23,15 +25,30 @@ class Kontak extends Component {
         id: data.id,
         nik: data.nik,
         nama_karyawan: data.nama_karyawan,
-        no_hp: data.no_hp,
-        alamat: data.alamat,
       });
     });
   };
 
+  storeKontak = () => {
+    const {judul, deskripsi} = this.state;
+    if (judul && deskripsi) {
+      //action
+      this.props.dispatch(storeKontak(judul, deskripsi));
+    } else {
+      Alert.alert('Error', 'Judul & Deskripsi harus diisi');
+    }
+  };
+
+  componentDidUpdate(prevProps) {
+    const {storeLoading} = this.props;
+    if (storeLoading && prevProps.storeLoading !== storeLoading) {
+      this.props.navigation.replace('MainApp');
+    }
+  }
+
   render() {
-    const {navigation} = this.props;
-    const {nama_karyawan, no_hp, alamat, nik} = this.state;
+    const {navigation,storeLoading} = this.props;
+    const {nama_karyawan,nik} = this.state;
     return (
       <View>
         <HeaderComponent navigation={navigation} />
@@ -49,6 +66,8 @@ class Kontak extends Component {
               icon="submit"
               padding={responsiveHeight(15)}
               fontSize={18}
+              loading={storeLoading}
+              onPress={() => this.storeKontak()}
             />
           </View>
         </View>
@@ -58,9 +77,9 @@ class Kontak extends Component {
 }
 
 const mapStateToProps = state => ({
-  loginLoading: state.AuthReducer.loginLoading,
-  loginResult: state.AuthReducer.loginResult,
-  loginError: state.AuthReducer.loginError,
+  storeLoading: state.AuthReducer.storeLoading,
+  storeResult: state.AuthReducer.storeResult,
+  storeError: state.AuthReducer.storeError,
 });
 export default connect(mapStateToProps, null)(Kontak);
 
