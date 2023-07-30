@@ -2,7 +2,19 @@ import React from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {colors, fonts} from '../../../utils';
 
-const Inputan = ({textarea, width, height, fontSize, placeholder, label, value, secureTextEntry, keyboardType}) => {
+const Inputan = ({
+  textarea,
+  width,
+  height,
+  fontSize,
+  placeholder,
+  label,
+  value,
+  secureTextEntry,
+  keyboardType,
+  onChangeText,
+  disabled
+}) => {
   if (textarea) {
     return (
       <View style={styles.container}>
@@ -12,6 +24,8 @@ const Inputan = ({textarea, width, height, fontSize, placeholder, label, value, 
           multiline={true}
           numberOfLines={3}
           value={value}
+          onChangeText={onChangeText}
+          editable={disabled ? false : true}
         />
       </View>
     );
@@ -19,7 +33,14 @@ const Inputan = ({textarea, width, height, fontSize, placeholder, label, value, 
   return (
     <View style={styles.container}>
       <Text style={styles.label(fontSize)}>{label} :</Text>
-      <TextInput style={styles.input(width, height, fontSize)}  value={value} secureTextEntry={secureTextEntry} keyboardType={keyboardType} />
+      <TextInput
+        style={styles.input(width, height, fontSize)}
+        value={value}
+        secureTextEntry={secureTextEntry}
+        keyboardType={keyboardType}
+        onChangeText={onChangeText}
+        editable={disabled ? false : true}
+      />
     </View>
   );
 };
@@ -30,7 +51,7 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 10,
   },
-  label: (fontSize) => ({
+  label: fontSize => ({
     fontSize: fontSize ? fontSize : 18,
     fontFamily: fonts.primary.regular,
   }),
@@ -45,7 +66,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 10,
   }),
-  inputTextArea: (fontSize) => ({
+  inputTextArea: fontSize => ({
     fontSize: fontSize ? fontSize : 18,
     fontFamily: fonts.primary.regular,
     borderWidth: 1,
@@ -53,6 +74,6 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
     paddingVertical: 5,
     paddingHorizontal: 10,
-    textAlignVertical: 'top'
+    textAlignVertical: 'top',
   }),
 });

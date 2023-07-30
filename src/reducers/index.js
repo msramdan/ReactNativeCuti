@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import UserReducer from './user'
 // import RajaOngkirReducer from './rajaongkir'
-// import AuthReducer from './auth'
+import AuthReducer from './auth'
 // import ProfileReducer from './profile'
 // import LigaReducer from './liga'
 // import JerseyReducer from './jersey'
@@ -13,7 +13,7 @@ import UserReducer from './user'
 const rootReducer = combineReducers({
     UserReducer,
     // RajaOngkirReducer,
-    // AuthReducer,
+    AuthReducer,
     // ProfileReducer,
     // LigaReducer,
     // JerseyReducer,
