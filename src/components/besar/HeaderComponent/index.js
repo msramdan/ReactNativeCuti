@@ -63,11 +63,8 @@ class HeaderComponent extends Component {
     );
   }
 }
-const mapStateToProps = state => ({
-  dataUser: state.UserReducer.dataUser,
-});
 
-export default connect(mapStateToProps, null)(HeaderComponent);
+export default connect()(HeaderComponent);
 
 const styles = StyleSheet.create({
   container: {

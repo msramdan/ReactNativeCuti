@@ -32,9 +32,10 @@ import {connect} from 'react-redux';class Profile extends Component {
   };
   
   render() {
-    const { profile, menus } = this.state
     const { navigation } = this.props;
     const {
+      profile,
+      menus,
       nama_karyawan,
       no_hp,
       alamat,
@@ -55,11 +56,8 @@ import {connect} from 'react-redux';class Profile extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  dataUser: state.UserReducer.dataUser,
-});
 
-export default connect(mapStateToProps, null)(Profile);
+export default connect()(Profile);
 
 const styles = StyleSheet.create({
   page: {
