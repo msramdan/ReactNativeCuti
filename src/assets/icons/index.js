@@ -13,6 +13,7 @@ import IconEditProfile from './user-edit.svg'
 import IconKeranjangPutih from './keranjang-putih.svg'
 import IconHapus from './hapus.svg'
 import IconSubmit from './submit.svg'
+import IconSignOut from './sign-out.svg'
 
 
 
@@ -31,5 +32,6 @@ export {
     IconEditProfile,
     IconKeranjangPutih,
     IconHapus,
-    IconSubmit
+    IconSubmit,
+    IconSignOut
 }

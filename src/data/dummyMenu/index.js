@@ -1,5 +1,7 @@
 import React from 'react';
-import { IconChangePassword, IconEditProfile, } from "../../assets";
+import { IconChangePassword, IconEditProfile, IconSignOut } from "../../assets";
+
+
 
 export const dummyMenu = [
   {
@@ -13,5 +15,11 @@ export const dummyMenu = [
     nama: 'Change Password',
     gambar: <IconChangePassword />,
     halaman: 'ChangePassword'
+  },
+  {
+    id: 3,
+    nama: 'Sign Out',
+    gambar: <IconSignOut />,
+    halaman: 'Login'
   },
 ];
