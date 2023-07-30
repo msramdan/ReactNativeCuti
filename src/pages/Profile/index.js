@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View, Image} from 'react-native';
-import { colors, fonts, responsiveHeight, responsiveWidth } from '../../utils'
+import { colors, fonts, getData, responsiveHeight, responsiveWidth } from '../../utils'
 import { RFValue } from "react-native-responsive-fontsize";
 import { heightMobileUI } from '../../utils/constant';
 import { dummyMenu, dummyProfile } from '../../data';
 import { ListMenu } from '../../components';
-import { getUser } from '../../actions/UserAction';
-import {connect} from 'react-redux';
-class Profile extends Component {
+
+import {connect} from 'react-redux';class Profile extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -17,20 +16,37 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(getUser());
+    this.getUserData();
   }
+
+  getUserData = () => {
+    getData('user').then((res) => {
+      const data = res;
+      this.setState({
+        id: data.id,
+        nama_karyawan: data.nama_karyawan,
+        no_hp: data.no_hp,
+        alamat: data.alamat,
+      });
+    });
+  };
   
   render() {
     const { profile, menus } = this.state
-    const { navigation,dataUser } = this.props;
+    const { navigation } = this.props;
+    const {
+      nama_karyawan,
+      no_hp,
+      alamat,
+    } = this.state;
     return (
       <View style={styles.page}>
         <View style={styles.container}>
           <Image source={profile.avatar} style={styles.foto} />
           <View style={styles.profile}>
-            <Text style={styles.nama}>{dataUser.nama_karyawan}</Text>
-            <Text style={styles.desc}>No. HP : {dataUser.no_hp}</Text>
-            <Text style={styles.desc}>{profile.alamat} {dataUser.alamat}</Text>
+            <Text style={styles.nama}>{nama_karyawan}</Text>
+            <Text style={styles.desc}>No. HP : {no_hp}</Text>
+            <Text style={styles.desc}>{alamat}</Text>
           </View>
           <ListMenu menus={menus} navigation={navigation}/>
         </View>

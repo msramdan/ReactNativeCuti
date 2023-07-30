@@ -19,7 +19,7 @@ export default class Kontak extends Component {
           <HeaderComponent navigation={navigation} />
         <View style={styles.form} >
         <View>
-          <Inputan label="NIK" value={profile.nama} />
+          <Inputan label="NIK" value={profile.nik} />
           <Inputan label="Nama" value={profile.nama} />
           <Inputan label="Judul" />
           <Inputan label="Deskripsi" textarea />

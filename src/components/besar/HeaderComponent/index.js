@@ -1,32 +1,60 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, TextInput, Text, TouchableOpacity } from 'react-native';
-import { colors, fonts, responsiveHeight } from '../../../utils';
-import { IconLogout, IconUserLog } from '../../../assets';
+import React, {Component} from 'react';
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
+import {clearStorage, colors, fonts, getData, responsiveHeight} from '../../../utils';
+import {IconLogout, IconUserLog} from '../../../assets';
 import {connect} from 'react-redux';
-import { getUser } from '../../../actions/UserAction';
 
 class HeaderComponent extends Component {
-
-  componentDidMount() {
-    this.props.dispatch(getUser());
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: '',
+      nama_karyawan: '',
+    };
   }
 
+  componentDidMount() {
+    this.getUserData();
+  }
+
+  getUserData = () => {
+    getData('user').then((res) => {
+      const data = res;
+      this.setState({
+        id: data.id,
+        nama_karyawan: data.nama_karyawan,
+      });
+    });
+  };
+
   render() {
-    const { navigation,dataUser } = this.props;
+    const {navigation} = this.props;
+    const {
+      nama_karyawan,
+    } = this.state;
+    const onSubmit = () => {
+      clearStorage();
+      navigation.replace('Login');
+    };
     return (
       <View style={styles.container}>
         <View style={styles.wrapperHeader}>
           <IconUserLog />
           <View style={styles.welcomSection}>
             <Text style={styles.welcome}> Selamat datang, </Text>
-            <Text style={styles.welcome}>
-            {dataUser.nama_karyawan}
-            </Text>
+            <Text style={styles.welcome}>{nama_karyawan}</Text>
           </View>
 
           <View style={styles.logoutSection}>
             <Text style={styles.logout}> Logout</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+            <TouchableOpacity
+              onPress={() => onSubmit()}>
               <IconLogout />
             </TouchableOpacity>
           </View>
@@ -35,7 +63,7 @@ class HeaderComponent extends Component {
     );
   }
 }
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   dataUser: state.UserReducer.dataUser,
 });
 

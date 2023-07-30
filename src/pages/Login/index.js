@@ -22,7 +22,7 @@ class Login extends Component {
       //action
       this.props.dispatch(loginUser(nik, password));
     } else {
-      Alert.alert('Error', 'nik & Password harus diisi');
+      Alert.alert('Error', 'Nik & Password harus diisi');
     }
   };
 
