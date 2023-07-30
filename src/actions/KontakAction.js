@@ -12,14 +12,14 @@ import {
 } from '../utils';
 export const STORE_KONTAK = 'STORE_KONTAK';
 
-export const storeKontak = (nik, password) =>
+export const storeKontak = (judul, deskripsi, karyawan_id) =>
   {
     return dispatch => {
       // LOADING
       dispatchLoading(dispatch, STORE_KONTAK);
       axios({
           method: 'post',
-          url: URL_API + 'login?nik=' + nik + '&password=' + password,
+          url: URL_API + 'store?judul=' + judul + '&deskripsi=' + deskripsi+ '&karyawan_id=' + karyawan_id,
           timeout: API_TIMEOUT,
           headers: API_HEADER,
         })

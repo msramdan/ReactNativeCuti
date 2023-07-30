@@ -1,34 +1,58 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View, ScrollView, Image} from 'react-native';
 import {dummyProfile} from '../../data';
-import {colors, fonts, responsiveHeight, responsiveWidth} from '../../utils';
+import {
+  colors,
+  fonts,
+  getData,
+  responsiveHeight,
+  responsiveWidth,
+} from '../../utils';
 import {Inputan, Pilihan, Tombol} from '../../components';
 
 export default class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataProvinsi: [],
-      dataKota: [],
       profile: dummyProfile,
     };
   }
 
+  componentDidMount() {
+    this.getUserData();
+  }
+
+  getUserData = () => {
+    getData('user').then(res => {
+      const data = res;
+      this.setState({
+        id: data.id,
+        nama_karyawan: data.nama_karyawan,
+        no_hp: data.no_hp,
+        alamat: data.alamat,
+        nik: data.nik,
+      });
+    });
+  };
+
   render() {
-    const {dataKota, dataProvinsi, profile} = this.state;
+    const {profile, nama_karyawan, no_hp, alamat,nik} = this.state;
     return (
       <View style={styles.pages}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Inputan label="NIK" value={profile.nik} />
-          <Inputan label="Nama" value={profile.nama} />
-          <Inputan label="Tempat Lahir" value={profile.tempatLahir} />
-          <Inputan label="Tanggal Lahir" value={profile.tglLahir} />
-          <Inputan label="No. Handphone" value={profile.nomerHp} />
-          <Pilihan label="Jenis kelamin" datas={dataProvinsi} />
-          <Inputan label="Alamat" value={profile.alamat} textarea />
-          
+          <Inputan label="NIK" value={nik} onChangeText={(nik) => this.setState({nik})} disabled  />
+          <Inputan label="Nama" value={nama_karyawan} onChangeText={(nama_karyawan) => this.setState({nama_karyawan})} />
+          <Inputan label="No. Handphone" value={no_hp} onChangeText={(no_hp) => this.setState({no_hp})} />
+          <Inputan label="Alamat" value={alamat} textarea onChangeText={(alamat) => this.setState({alamat})} />
+
           <View style={styles.submit}>
-             <Tombol title="Submit" type="textIcon" icon="submit" padding={responsiveHeight(15)} fontSize={18}/>
+            <Tombol
+              title="Submit"
+              type="textIcon"
+              icon="submit"
+              padding={responsiveHeight(15)}
+              fontSize={18}
+            />
           </View>
         </ScrollView>
       </View>
