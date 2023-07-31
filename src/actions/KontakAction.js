@@ -30,7 +30,6 @@ export const storeKontak = (judul, deskripsi, karyawan_id) =>
             alert(error);
           } else {
             //SUKSES
-            storeData('user', response.data.data,);
             dispatchSuccess(
               dispatch,
               STORE_KONTAK,

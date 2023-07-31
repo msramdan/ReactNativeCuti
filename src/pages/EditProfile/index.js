@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View, ScrollView, Image} from 'react-native';
-import {dummyProfile} from '../../data';
 import {
   colors,
   fonts,
@@ -8,14 +7,20 @@ import {
   responsiveHeight,
   responsiveWidth,
 } from '../../utils';
-import {Inputan, Pilihan, Tombol} from '../../components';
+import {Inputan, Tombol} from '../../components';
+import {connect} from 'react-redux';
+import { updateProfile } from '../../actions/ProfileAction';
 
-export default class EditProfile extends Component {
+class EditProfile extends Component {
   constructor(props) {
-    super(props);
+    super(props)
+  
     this.state = {
-      profile: dummyProfile,
-    };
+      nik: '',
+      nama_karyawan: '',
+      no_hp: '',
+      alamat: '',
+    }
   }
 
   componentDidMount() {
@@ -35,8 +40,23 @@ export default class EditProfile extends Component {
     });
   };
 
+  onSubmit = () => {
+    const {
+      nama_karyawan,
+      alamat,
+      no_hp,
+    } = this.state;
+    if(nama_karyawan && alamat && no_hp) {
+      this.props.dispatch(updateProfile(this.state))
+    }else {
+      Alert.alert("Error", "Nama No. HP, Alamat harus diis")
+    }
+  }
+
+
   render() {
-    const {profile, nama_karyawan, no_hp, alamat,nik} = this.state;
+    const {nama_karyawan, no_hp, alamat,nik} = this.state;
+    const {updateProfileLoading} = this.props;
     return (
       <View style={styles.pages}>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -52,6 +72,8 @@ export default class EditProfile extends Component {
               icon="submit"
               padding={responsiveHeight(15)}
               fontSize={18}
+              loading={updateProfileLoading}
+              onPress={() => this.onSubmit()}
             />
           </View>
         </ScrollView>
@@ -59,6 +81,14 @@ export default class EditProfile extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  updateProfileLoading: state.ProfileReducer.updateProfileLoading,
+  updateProfileResult: state.ProfileReducer.updateProfileResult,
+  updateProfileError: state.ProfileReducer.updateProfileError,
+});
+
+export default connect(mapStateToProps, null)(EditProfile);
 
 const styles = StyleSheet.create({
   pages: {

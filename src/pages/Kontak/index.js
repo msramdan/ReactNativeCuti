@@ -30,21 +30,15 @@ class Kontak extends Component {
   };
 
   storeKontak = () => {
-    const {judul, deskripsi} = this.state;
+    const {judul, deskripsi, id} = this.state;
     if (judul && deskripsi) {
-      //action
-      this.props.dispatch(storeKontak(judul, deskripsi));
+      this.props.dispatch(storeKontak(judul, deskripsi, id));
+      Alert.alert('Success', 'Kotak masukan berhasil dikirim');
+      this.props.navigation.replace('MainApp');
     } else {
       Alert.alert('Error', 'Judul & Deskripsi harus diisi');
     }
   };
-
-  componentDidUpdate(prevProps) {
-    const {storeLoading} = this.props;
-    if (storeLoading && prevProps.storeLoading !== storeLoading) {
-      this.props.navigation.replace('MainApp');
-    }
-  }
 
   render() {
     const {navigation,storeLoading} = this.props;
@@ -77,9 +71,9 @@ class Kontak extends Component {
 }
 
 const mapStateToProps = state => ({
-  storeLoading: state.AuthReducer.storeLoading,
-  storeResult: state.AuthReducer.storeResult,
-  storeError: state.AuthReducer.storeError,
+  storeLoading: state.KontakReducer.storeLoading,
+  storeResult: state.KontakReducer.storeResult,
+  storeError: state.KontakReducer.storeError,
 });
 export default connect(mapStateToProps, null)(Kontak);
 
