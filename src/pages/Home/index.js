@@ -6,7 +6,6 @@ import BannerSlider from '../../components/besar/BannerSlider';
 import ListJerseys from '../../components/besar/ListJerseys';
 import {dummyJerseys} from '../../data';
 import {connect} from 'react-redux';
-import {getData} from '../../utils';
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -14,29 +13,6 @@ class Home extends Component {
       jerseys: dummyJerseys,
     };
   }
-
-  componentDidMount() {
-    this._unsubscribe = this.props.navigation.addListener('focus', () => {
-      this.getUserData();
-    });
-  }
-
-  componentWillUnmount() {
-    this._unsubscribe();
-  }
-
-  getUserData = () => {
-    getData('user').then(res => {
-      const data = res;
-      if (data) {
-        this.setState({
-          profile: data,
-        });
-      } else {
-        this.props.navigation.replace('Login');
-      }
-    });
-  };
 
   render() {
     const {navigation} = this.props;

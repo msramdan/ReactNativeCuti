@@ -9,22 +9,31 @@ import {
 } from '../../utils';
 import {Inputan, Tombol} from '../../components';
 import {connect} from 'react-redux';
-import { updateProfile } from '../../actions/ProfileAction';
+import {updateProfile} from '../../actions/ProfileAction';
+import {Alert} from 'react-native';
 
 class EditProfile extends Component {
   constructor(props) {
-    super(props)
-  
+    super(props);
+
     this.state = {
       nik: '',
       nama_karyawan: '',
       no_hp: '',
       alamat: '',
-    }
+    };
   }
 
   componentDidMount() {
     this.getUserData();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { updateProfileResult } = this.props
+    if(updateProfileResult && prevProps.updateProfileResult !== updateProfileResult) {
+      Alert.alert("Sukses", "Update Profile Success");
+      this.props.navigation.replace("MainApp")
+    }
   }
 
   getUserData = () => {
@@ -41,29 +50,42 @@ class EditProfile extends Component {
   };
 
   onSubmit = () => {
-    const {
-      nama_karyawan,
-      alamat,
-      no_hp,
-    } = this.state;
-    if(nama_karyawan && alamat && no_hp) {
-      this.props.dispatch(updateProfile(this.state))
-    }else {
-      Alert.alert("Error", "Nama No. HP, Alamat harus diis")
+    const {nama_karyawan, alamat, no_hp} = this.state;
+    if (nama_karyawan && alamat && no_hp) {
+      this.props.dispatch(updateProfile(this.state));
+    } else {
+      Alert.alert('Error', 'Nama No. HP, Alamat harus diis');
     }
-  }
-
+  };
 
   render() {
-    const {nama_karyawan, no_hp, alamat,nik} = this.state;
+    const {nama_karyawan, no_hp, alamat, nik} = this.state;
     const {updateProfileLoading} = this.props;
     return (
       <View style={styles.pages}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Inputan label="NIK" value={nik} onChangeText={(nik) => this.setState({nik})} disabled  />
-          <Inputan label="Nama" value={nama_karyawan} onChangeText={(nama_karyawan) => this.setState({nama_karyawan})} />
-          <Inputan label="No. Handphone" value={no_hp} onChangeText={(no_hp) => this.setState({no_hp})} />
-          <Inputan label="Alamat" value={alamat} textarea onChangeText={(alamat) => this.setState({alamat})} />
+          <Inputan
+            label="NIK"
+            value={nik}
+            onChangeText={nik => this.setState({nik})}
+            disabled
+          />
+          <Inputan
+            label="Nama"
+            value={nama_karyawan}
+            onChangeText={nama_karyawan => this.setState({nama_karyawan})}
+          />
+          <Inputan
+            label="No. Handphone"
+            value={no_hp}
+            onChangeText={no_hp => this.setState({no_hp})}
+          />
+          <Inputan
+            label="Alamat"
+            value={alamat}
+            textarea
+            onChangeText={alamat => this.setState({alamat})}
+          />
 
           <View style={styles.submit}>
             <Tombol
@@ -82,7 +104,7 @@ class EditProfile extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   updateProfileLoading: state.ProfileReducer.updateProfileLoading,
   updateProfileResult: state.ProfileReducer.updateProfileResult,
   updateProfileError: state.ProfileReducer.updateProfileError,

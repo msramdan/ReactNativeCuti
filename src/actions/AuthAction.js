@@ -41,7 +41,7 @@ export const loginUser = (nik, password) =>
         .catch(error => {
           // ERROR
           dispatchError(dispatch, LOGIN_USER, error.message);
-          alert(error.message);
+          alert('NIK /  Password Salah');
         });
     };
   };
