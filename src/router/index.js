@@ -1,10 +1,12 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {EditProfile, Home, Kontak, Login, Profile, Splash} from '../pages';
+import {ChangePassword, DaftarCuti, EditProfile, Home, Kontak, Login, PengajuanCuti, Profile, Splash, StatusPengajuan} from '../pages';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BottomNavigator} from '../components';
-import ChangePassword from '../pages/ChangePassword';
+
+
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -49,6 +51,21 @@ const Route = () => {
         name="ChangePassword"
         component={ChangePassword}
         options={{title: 'Change Password'}}
+      />
+      <Stack.Screen
+        name="DaftarCuti"
+        component={DaftarCuti}
+        options={{title: 'Daftar Cuti'}}
+      />
+      <Stack.Screen
+        name="PengajuanCuti"
+        component={PengajuanCuti}
+        options={{title: 'Pengajuan Cuti'}}
+      />
+      <Stack.Screen
+        name="StatusPengajuan"
+        component={StatusPengajuan}
+        options={{title: 'Status Pengajuan'}}
       />
       <Stack.Screen
         name="Login"

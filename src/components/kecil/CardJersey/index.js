@@ -1,12 +1,11 @@
 import React from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import { colors, fonts, responsiveWidth } from '../../../utils';
-import Tombol from '../Tombol';
 
 const CardJersey = ({jersey, navigation}) => {
   return (
     <View>
-      <TouchableOpacity style={styles.card}>
+      <TouchableOpacity style={styles.card} onPress={() => navigation.navigate(jersey.halaman)}>
         <Image source={jersey.gambar[0]} style={styles.gambar} />
         <Text style={styles.text}>{jersey.nama}</Text>
       </TouchableOpacity>
