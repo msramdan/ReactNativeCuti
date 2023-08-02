@@ -1,6 +1,6 @@
 import {Alert} from 'react-native';
 import axios from 'axios';
-import {storeData} from '../utils';
+import {clearStorage, storeData} from '../utils';
 import {dispatchError, dispatchLoading, dispatchSuccess} from '../utils';
 import {API_HEADER, URL_API, API_TIMEOUT} from '../utils/constant';
 
@@ -48,6 +48,24 @@ export const updateProfile = data => {
 export const changePassword = data => {
   return dispatch => {
     dispatchLoading(dispatch, CHANGE_PASSWORD);
-    console.log('sini');
+    axios({
+      method: 'post',
+      url: URL_API + 'changePassword?id=' + data.id,
+      timeout: API_TIMEOUT,
+      headers: API_HEADER,
+      data: {
+        password: data.password,
+        newPassword: data.newPassword,
+      },
+    })
+      .then(response => {
+        dispatchSuccess(dispatch, CHANGE_PASSWORD, response.data.data);
+        Alert.alert('Sukses', 'Change Password Success');
+        clearStorage();
+      })
+      .catch(function (error) {
+        dispatchError(dispatch, CHANGE_PASSWORD, error.response.data.message);
+        alert(error.response.data.message);
+      });
   };
 };

@@ -27,13 +27,13 @@ class ChangePassword extends Component {
       //ambil data email dari local storage
       getData('user').then((res) => {
         const parameter = {
-          nik: res.nik,
+          id: res.id,
           password: password,
           newPassword: newPassword,
         };
         this.props.dispatch(changePassword(parameter));
       });
-    } else {
+    } else { 
       Alert.alert(
         'Error',
         'Password Lama, Password Baru dan Konfirmasi Password Baru Harus Diisi',
@@ -44,8 +44,7 @@ class ChangePassword extends Component {
   componentDidUpdate(prevProps) {
     const {changePasswordResult} = this.props;
     if (prevProps.changePasswordResult !== changePasswordResult) {
-      Alert.alert('Sukses', 'Change Password Success');
-      this.props.navigation.replace('MainApp');
+      this.props.navigation.replace('Login');
     }
   }
 
