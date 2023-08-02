@@ -44,7 +44,7 @@ class ChangePassword extends Component {
   componentDidUpdate(prevProps) {
     const {changePasswordResult} = this.props;
     if (prevProps.changePasswordResult !== changePasswordResult) {
-      this.props.navigation.replace('Login');
+      this.props.navigation.replace('MainApp');
     }
   }
 
