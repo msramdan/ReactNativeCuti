@@ -29,10 +29,10 @@ class EditProfile extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { updateProfileResult } = this.props
-    if(updateProfileResult && prevProps.updateProfileResult !== updateProfileResult) {
-      Alert.alert("Sukses", "Update Profile Success");
-      this.props.navigation.replace("MainApp")
+    const {updateProfileResult} = this.props;
+    if (prevProps.updateProfileResult !== updateProfileResult) {
+      Alert.alert('Sukses', 'Update Profile Success');
+      this.props.navigation.replace('MainApp');
     }
   }
 
@@ -89,12 +89,12 @@ class EditProfile extends Component {
 
           <View style={styles.submit}>
             <Tombol
+              loading={updateProfileLoading}
               title="Submit"
               type="textIcon"
               icon="submit"
               padding={responsiveHeight(15)}
               fontSize={18}
-              loading={updateProfileLoading}
               onPress={() => this.onSubmit()}
             />
           </View>
