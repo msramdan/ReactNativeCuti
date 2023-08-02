@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontFamily: fonts.primary.bold,
-        fontSize: 15,
+        fontSize: 22,
         textTransform: 'capitalize',
         textAlign: 'center'
     }

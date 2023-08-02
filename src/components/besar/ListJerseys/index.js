@@ -18,9 +18,14 @@ export default ListJerseys
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-        marginTop: 10
-    }
-})
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'space-between',
+      marginTop: 10,
+    },
+    loading: {
+      flex: 1,
+      marginTop: 10,
+      marginBottom: 30,
+    },
+  });

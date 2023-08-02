@@ -1,26 +1,25 @@
 import {
-    ChelseaBelakang,
-    ChelseaDepan,
-    DortmundBelakang,
-    DortmundDepan,
-    JuveBelakang,
-    JuveDepan,
+    FormMenu,
+    ListCutiMenu,
+    StatusMenu,
   } from '../../assets';
+
+
   
   export const dummyJerseys = [
     {
       id: 1,
       nama: 'Pengajuan Cuti',
-      gambar: [ChelseaDepan, ChelseaBelakang],
+      gambar: [FormMenu, FormMenu],
     },
     {
       id: 2,
       nama: 'Status Pengajuan',
-      gambar: [DortmundDepan, DortmundBelakang],
+      gambar: [StatusMenu, StatusMenu],
     },
     {
       id: 3,
       nama: 'Daftar Cuti Hari Ini',
-      gambar: [JuveDepan, JuveBelakang],
+      gambar: [ListCutiMenu, ListCutiMenu],
     },
   ];

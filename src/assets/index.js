@@ -1,3 +1,3 @@
 export * from './images'
 export * from './icons'
-export * from './jerseys'
+export * from './menu'
