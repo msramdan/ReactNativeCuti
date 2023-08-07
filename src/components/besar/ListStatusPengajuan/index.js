@@ -1,5 +1,11 @@
 import React from 'react';
-import {ActivityIndicator, StyleSheet, Text, View, ScrollView} from 'react-native';
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+} from 'react-native';
 import {colors} from '../../../utils';
 import {CardKeranjang} from '../../kecil';
 
@@ -12,11 +18,10 @@ const ListStatusPengajuan = ({
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
         {getListPengajuanResult ? (
-          Object.keys(getListPengajuanResult.pesanans).map((key) => {
+          Object.keys(getListPengajuanResult).map(key => {
             return (
               <CardKeranjang
-                keranjang={getListPengajuanResult.pesanans[key]}
-                keranjangUtama={getListPengajuanResult}
+                statusPengajuan={getListPengajuanResult[key]}
                 key={key}
                 id={key}
               />
@@ -38,7 +43,7 @@ const ListStatusPengajuan = ({
 export default ListStatusPengajuan;
 
 const styles = StyleSheet.create({
-    container: {
-        marginVertical: 10
-    }
+  container: {
+    marginVertical: 10,
+  },
 });

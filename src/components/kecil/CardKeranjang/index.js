@@ -9,16 +9,16 @@ import {
 } from '../../../utils';
 import Jarak from '../Jarak';
 
-const CardKeranjang = ({keranjang}) => {
+const CardKeranjang = ({statusPengajuan , id}) => {
   return (
     <View style={styles.container}>
       <View style={styles.desc}>
-        <Text style={styles.nama}>Cuti Tahunan</Text>
-        <Text style={styles.textBold}>Status Pengajuan : {keranjang.ukuran}</Text>
-        <Text style={styles.textBold}>Tanggal Pengajuan : 07-08-2023</Text>
-        <Text style={styles.textBold}>Tanggal Cuti : 07-08-2023 s.d 07-08-2023</Text>
+        <Text style={styles.nama}>{statusPengajuan.jenis_cuti}</Text>
+        <Text style={styles.textBold}>Status Pengajuan : {statusPengajuan.status_pengajuan}</Text>
+        <Text style={styles.textBold}>Tanggal Pengajuan : {statusPengajuan.tanggal_pengajuan}</Text>
+        <Text style={styles.textBold}>Tanggal Cuti : {statusPengajuan.tanggal_awal} s.d {statusPengajuan.tanggal_akhir}</Text>
         <Text style={styles.textBold}>Alasan:</Text>
-        <Text style={styles.textBold}>{keranjang.keterangan} </Text>
+        <Text style={styles.textBold}>{statusPengajuan.alasan}</Text>
       </View>
       <View style={styles.hapus}>
         <IconHapus />

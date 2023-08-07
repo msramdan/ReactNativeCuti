@@ -23,25 +23,25 @@ import {
     return dispatch => {
       // LOADING
       dispatchLoading(dispatch, LIST_PENGAJUAN);
-      console.log('here');
-    //   axios({
-    //       method: 'get',
-    //       url: URL_API + 'listPengajuan?id=' + data.id,
-    //       timeout: API_TIMEOUT,
-    //       headers: API_HEADER,
-    //     })
-    //     .then(response => {
-    //       if (response.status !== 200) {
-    //         dispatchError(dispatch, LIST_PENGAJUAN, response);
-    //         alert(error);
-    //       } else {
-    //         dispatchSuccess(dispatch, LIST_PENGAJUAN, response.data.data);
-    //       }
-    //     })
-    //     .catch(error => {
-    //       dispatchError(dispatch, LIST_PENGAJUAN, error.message);
-    //       alert(error.message);
-    //     });
+      axios({
+          method: 'get',
+          url: URL_API + 'getListPengajuan?id=' + data,
+          timeout: API_TIMEOUT,
+          headers: API_HEADER,
+        })
+        .then(response => {
+          if (response.status !== 200) {
+            dispatchError(dispatch, LIST_PENGAJUAN, response);
+            alert(error);
+          } else {
+            console.log( response.data.data);
+            dispatchSuccess(dispatch, LIST_PENGAJUAN, response.data.data);
+          }
+        })
+        .catch(error => {
+          dispatchError(dispatch, LIST_PENGAJUAN, error.message);
+          alert(error.message);
+        });
     };
   };
   

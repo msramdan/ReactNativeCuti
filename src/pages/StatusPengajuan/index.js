@@ -10,7 +10,7 @@ class StatusPengajuan extends Component {
   componentDidMount() {
     getData('user').then((res) => {
       if (res) {
-        this.props.dispatch(getListPengajuan(res.uid));
+        this.props.dispatch(getListPengajuan(res.id));
       } else {
         this.props.navigation.replace('Login');
       }
@@ -18,7 +18,7 @@ class StatusPengajuan extends Component {
   }
 
   render() {
-    // const {getListPengajuanResult} = this.props;
+    const {getListPengajuanResult} = this.props;
     return (
       <View style={styles.page}>
         <ListStatusPengajuan {...this.props} />
