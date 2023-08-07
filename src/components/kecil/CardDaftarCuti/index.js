@@ -9,7 +9,7 @@ import {
   responsiveWidth,
 } from '../../../utils';
 
-const CardKeranjang = ({statusPengajuan , id}) => {
+const CardDaftarCuti = ({statusPengajuan , id}) => {
 
   const renderText = (text) => {
     if (text == 'Pending') {
@@ -20,26 +20,21 @@ const CardKeranjang = ({statusPengajuan , id}) => {
       return <IconHapus />
     }
   }
+  // const staticImage = require("https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/800px-User_icon_2.svg.png");
   return (
     <View style={styles.container}>
-      {/* <Image style={styles.gambar} /> */}
+      <Image source={{uri:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/800px-User_icon_2.svg.png'}}style={styles.gambar} />
       <View style={styles.desc}>
         <Text style={styles.nama}>{statusPengajuan.jenis_cuti}</Text>
-        <Text style={styles.textBold}>Status Pengajuan : {statusPengajuan.status_pengajuan}</Text>
-        <Text style={styles.textBold}>Tanggal Pengajuan : {statusPengajuan.tanggal_pengajuan}</Text>
-        <Text style={styles.textBold}>Tanggal Cuti : {statusPengajuan.tanggal_awal} s.d {statusPengajuan.tanggal_akhir}</Text>
-        <Text style={styles.textBold}>Alasan:</Text>
-        <Text style={styles.textBold}>{statusPengajuan.alasan}</Text>
-      </View>
-      <View style={styles.hapus}>
-        
-        {renderText(statusPengajuan.status_pengajuan)}
+        <Text style={styles.textBold}>NIK : {statusPengajuan.status_pengajuan}</Text>
+        <Text style={styles.textBold}>Departemen : {statusPengajuan.tanggal_pengajuan}</Text>
+        <Text style={styles.textBold}>Jabatan : {statusPengajuan.tanggal_awal} s.d {statusPengajuan.tanggal_akhir}</Text>
       </View>
     </View>
   );
 };
 
-export default CardKeranjang;
+export default CardDaftarCuti;
 
 const styles = StyleSheet.create({
   container: {

@@ -55,7 +55,7 @@ const Route = () => {
       <Stack.Screen
         name="DaftarCuti"
         component={DaftarCuti}
-        options={{title: 'Daftar Cuti'}}
+        options={{title: 'Daftar Cuti Hari Ini'}}
       />
       <Stack.Screen
         name="PengajuanCuti"
