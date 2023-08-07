@@ -4,7 +4,7 @@ import KontakReducer from './kontak'
 import ProfileReducer from './profile'
 // import LigaReducer from './liga'
 // import JerseyReducer from './jersey'
-// import KeranjangReducer from './keranjang'
+import StatusPengajuanReducer from './pengajuan'
 // import PaymentReducer from './payment'
 // import PesananReducer from './pesanan'
 // import HistoryReducer from './history'
@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
     ProfileReducer,
     // LigaReducer,
     // JerseyReducer,
-    // KeranjangReducer,
+    StatusPengajuanReducer,
     // PaymentReducer,
     // PesananReducer,
     // HistoryReducer
