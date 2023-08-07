@@ -1,15 +1,25 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
-import {IconHapus} from '../../../assets';
+import { StyleSheet, Text, View} from 'react-native';
+import {IconCheck, IconHapus, IconWait} from '../../../assets';
+
 import {
   colors,
   fonts,
   responsiveHeight,
   responsiveWidth,
 } from '../../../utils';
-import Jarak from '../Jarak';
 
 const CardKeranjang = ({statusPengajuan , id}) => {
+
+  const renderText = (text) => {
+    if (text == 'Pending') {
+      return <IconWait />
+    } else if (text == 'Approved') {
+      return <IconCheck />
+    } else {
+      return <IconHapus />
+    }
+  }
   return (
     <View style={styles.container}>
       <View style={styles.desc}>
@@ -21,7 +31,8 @@ const CardKeranjang = ({statusPengajuan , id}) => {
         <Text style={styles.textBold}>{statusPengajuan.alasan}</Text>
       </View>
       <View style={styles.hapus}>
-        <IconHapus />
+        
+        {renderText(statusPengajuan.status_pengajuan)}
       </View>
     </View>
   );
