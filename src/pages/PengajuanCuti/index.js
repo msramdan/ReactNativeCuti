@@ -5,6 +5,8 @@ import {Inputan, Tombol, HeaderComponent, Pilihan} from '../../components';
 import {connect} from 'react-redux';
 import { storePengajuan } from '../../actions/PengajuanAction';
 
+
+
 const countries = [
   "Cuti Tahunan",
   "Cuti Menikah (Special Leave)",
@@ -30,14 +32,6 @@ class PengajuanCuti extends Component {
     this.getUserData();
   }
 
-  componentDidUpdate(prevProps) {
-    const {storePengajuanCutiResult} = this.props;
-    if (prevProps.storePengajuanCutiResult !== storePengajuanCutiResult) {
-      Alert.alert('Sukses', 'Pengajuan cuti berhasil dikirim');
-      this.props.navigation.replace('MainApp');
-    }
-  }
-
   ubahJenisCuti = (jenisCuti) => {
     this.setState({
       jenisCuti: jenisCuti,
@@ -59,6 +53,8 @@ class PengajuanCuti extends Component {
     const {jenisCuti , alasan , id} = this.state;
     if (jenisCuti && alasan) {
       this.props.dispatch(storePengajuan(jenisCuti, alasan, id));
+      Alert.alert('Sukses', 'Pengajuan cuti berhasil dikirim');
+      this.props.navigation.replace('MainApp');
     } else {
       Alert.alert('Error', 'Jenis Cuti, Alasan harus diisi');
     }
@@ -78,8 +74,6 @@ class PengajuanCuti extends Component {
                 selectedValue={jenisCuti}
                 onValueChange={(jenisCuti) => this.ubahJenisCuti(jenisCuti)}
               />
-            {/* <Inputan label="Tanggal Awal" />
-            <Inputan label="Tanggal AKhir" /> */}
             <Inputan label="Alasan" textarea onChangeText={alasan => this.setState({alasan})} />
           </View>
           <View style={styles.submit}>
