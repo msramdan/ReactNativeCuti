@@ -1,4 +1,5 @@
 import axios from 'axios';
+import moment from 'moment';
 import {
   API_HEADER,
   URL_API,
@@ -12,12 +13,12 @@ import {
 } from '../utils';
 export const STORE_PENGAJUAN = 'STORE_PENGAJUAN';
 
-export const storePengajuan = (jenis_cuti, alasan, karyawan_id,selectedStartDate, selectedEndDate) => {
+export const storePengajuan = (jenis_cuti, alasan, karyawan_id, selectedStartDate, selectedEndDate) => {
   return dispatch => {
     // LOADING
     dispatchLoading(dispatch, STORE_PENGAJUAN);
-    console.log(selectedStartDate);
-    console.log(selectedEndDate);
+    var a = moment(selectedStartDate).format("Y-M-D");
+    var b = moment(selectedEndDate).format("Y-M-D");
     axios({
         method: 'post',
         url: URL_API +
@@ -26,7 +27,11 @@ export const storePengajuan = (jenis_cuti, alasan, karyawan_id,selectedStartDate
           '&alasan=' +
           alasan +
           '&karyawan_id=' +
-          karyawan_id,
+          karyawan_id +
+          '&selectedStartDate=' +
+          a +
+          '&selectedEndDate=' +
+          b,
         timeout: API_TIMEOUT,
         headers: API_HEADER,
       })

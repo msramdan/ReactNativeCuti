@@ -48,7 +48,6 @@ class Kontak extends Component {
         <HeaderComponent navigation={navigation} />
         <View style={styles.form}>
           <View>
-            <Inputan label="NIK" value={nik} disabled />
             <Inputan label="Nama" value={nama_karyawan} disabled />
             <Inputan label="Judul" onChangeText={judul => this.setState({judul})} />
             <Inputan label="Deskripsi" textarea onChangeText={deskripsi => this.setState({deskripsi})} />

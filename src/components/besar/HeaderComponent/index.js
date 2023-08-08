@@ -23,6 +23,9 @@ class HeaderComponent extends Component {
     this.getUserData();
   }
 
+  componentDidUpdate() {
+    this.getUserData();
+  }
   getUserData = () => {
     getData('user').then((res) => {
       const data = res;
@@ -47,10 +50,9 @@ class HeaderComponent extends Component {
         <View style={styles.wrapperHeader}>
           <IconUserLog />
           <View style={styles.welcomSection}>
-            <Text style={styles.welcome}> Selamat datang, </Text>
-            <Text style={styles.welcome}>{nama_karyawan}</Text>
+          <Text style={styles.welcome}>{nama_karyawan}</Text>
+            <Text style={styles.welcome}>Sisa Cuti Tahunan : 10 </Text>
           </View>
-
           <View style={styles.logoutSection}>
             <Text style={styles.logout}> Logout</Text>
             <TouchableOpacity
