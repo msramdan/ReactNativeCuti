@@ -8,9 +8,5 @@ import CardKeranjang from "./CardKeranjang";
 import CardDaftarCuti from "./CardDaftarCuti";
 
 
-
-
-
-
 export {Jarak,CardMenu,Tombol,Inputan,Pilihan,CardJersey,CardKeranjang,CardDaftarCuti};
 

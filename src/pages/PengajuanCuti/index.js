@@ -1,23 +1,37 @@
 import React, {Component} from 'react';
-import { StyleSheet, View,Alert} from 'react-native';
+import {StyleSheet, View, Alert} from 'react-native';
 import {colors, responsiveHeight, fonts, getData} from '../../utils';
-import {Inputan, Tombol, HeaderComponent} from '../../components';
+import {Inputan, Tombol, HeaderComponent, Pilihan} from '../../components';
 import {connect} from 'react-redux';
-import { storeKontak } from '../../actions/KontakAction';
+import { storePengajuan } from '../../actions/PengajuanAction';
 
-export class PengajuanCuti extends Component {
-
+const countries = ["Cuti Tahunan", "Cuti Melahrkan"]
+class PengajuanCuti extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      judul: '',
-      deskripsi: '',
+      jenisCuti: '',
+      alasan: '',
     };
   }
 
   componentDidMount() {
     this.getUserData();
   }
+
+  componentDidUpdate(prevProps) {
+    const {storePengajuanCutiResult} = this.props;
+    if (prevProps.storePengajuanCutiResult !== storePengajuanCutiResult) {
+      Alert.alert('Sukses', 'Pengajuan cuti berhasil dikirim');
+      this.props.navigation.replace('MainApp');
+    }
+  }
+
+  ubahJenisCuti = (jenisCuti) => {
+    this.setState({
+      jenisCuti: jenisCuti,
+    });
+  };
 
   getUserData = () => {
     getData('user').then(res => {
@@ -29,16 +43,33 @@ export class PengajuanCuti extends Component {
       });
     });
   };
+
+  storePengajuan = () => {
+    const {jenisCuti , alasan , id} = this.state;
+    if (jenisCuti && alasan) {
+      this.props.dispatch(storePengajuan(jenisCuti, alasan, id));
+    } else {
+      Alert.alert('Error', 'Jenis Cuti, Alasan harus diisi');
+    }
+  };
   render() {
-    const {nama_karyawan,nik} = this.state;
+    const {nama_karyawan, nik, jenisCuti} = this.state;
+    const {storePengajuanCutiLoading} = this.props;
     return (
       <View>
         <View style={styles.form}>
           <View>
             <Inputan label="NIK" value={nik} disabled />
             <Inputan label="Nama" value={nama_karyawan} disabled />
-            <Inputan label="Judul" />
-            <Inputan label="Deskripsi" textarea />
+            <Pilihan
+                label="Jenis Cuti"
+                datas={countries}
+                selectedValue={jenisCuti}
+                onValueChange={(jenisCuti) => this.ubahJenisCuti(jenisCuti)}
+              />
+            {/* <Inputan label="Tanggal Awal" />
+            <Inputan label="Tanggal AKhir" /> */}
+            <Inputan label="Alasan" textarea onChangeText={alasan => this.setState({alasan})} />
           </View>
           <View style={styles.submit}>
             <Tombol
@@ -47,6 +78,8 @@ export class PengajuanCuti extends Component {
               icon="submit"
               padding={responsiveHeight(15)}
               fontSize={18}
+              loading={storePengajuanCutiLoading}
+              onPress={() => this.storePengajuan()}
             />
           </View>
         </View>
@@ -55,7 +88,12 @@ export class PengajuanCuti extends Component {
   }
 }
 
-export default PengajuanCuti
+const mapStateToProps = state => ({
+  storePengajuanCutiLoading: state.PengajuanCutiReducer.storePengajuanCutiLoading,
+  storePengajuanCutiResult: state.PengajuanCutiReducer.storePengajuanCutiResult,
+  storePengajuanCutiError: state.PengajuanCutiReducer.storePengajuanCutiError,
+});
+export default connect(mapStateToProps, null)(PengajuanCuti);
 
 const styles = StyleSheet.create({
   form: {
