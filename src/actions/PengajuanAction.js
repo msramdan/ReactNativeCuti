@@ -12,11 +12,12 @@ import {
 } from '../utils';
 export const STORE_PENGAJUAN = 'STORE_PENGAJUAN';
 
-export const storePengajuan = (jenis_cuti, alasan, karyawan_id) => {
+export const storePengajuan = (jenis_cuti, alasan, karyawan_id,selectedStartDate, selectedEndDate) => {
   return dispatch => {
     // LOADING
     dispatchLoading(dispatch, STORE_PENGAJUAN);
-    console.log(karyawan_id);
+    console.log(selectedStartDate);
+    console.log(selectedEndDate);
     axios({
         method: 'post',
         url: URL_API +

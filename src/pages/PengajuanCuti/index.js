@@ -25,8 +25,7 @@ const countries = [
   'Cuti Keluarga Dalam Satu Rumah Meninggal (Special Leave)',
   'Cuti Ibadah Haji',
 ];
-
-export default class PengajuanCuti extends Component {
+class PengajuanCuti extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -91,7 +90,6 @@ export default class PengajuanCuti extends Component {
         } else {
           const source = response.assets[0].uri;
           const fileString = `data:${response.assets[0].type};base64,${response.assets[0].base64}`;
-
           this.setState({
             avatar: source,
             avatarForDB: fileString,
@@ -103,13 +101,19 @@ export default class PengajuanCuti extends Component {
   };
 
   storePengajuan = () => {
-    const {jenisCuti, alasan, id} = this.state;
-    if (jenisCuti && alasan) {
-      this.props.dispatch(storePengajuan(jenisCuti, alasan, id));
+    const {jenisCuti, alasan, id, selectedStartDate,selectedEndDate } = this.state;
+    if(jenisCuti=='' || jenisCuti==null ){
+      Alert.alert('Error', 'Jenis cuti belum dipilih');
+    }else if(selectedStartDate=='' || selectedStartDate==null ){
+      Alert.alert('Error', 'Tanggal awal belum dipilih');
+    }else if(selectedEndDate=='' || selectedEndDate==null ){
+      Alert.alert('Error', 'Tanggal akhir belum dipilih');
+    }else if(alasan=='' || alasan==null ){
+      Alert.alert('Error', 'Alasan harus diisi');
+    }else {
+      this.props.dispatch(storePengajuan(jenisCuti, alasan, id, selectedStartDate, selectedEndDate));
       Alert.alert('Sukses', 'Pengajuan cuti berhasil dikirim');
       this.props.navigation.replace('MainApp');
-    } else {
-      Alert.alert('Error', 'Jenis Cuti, Alasan harus diisi');
     }
   };
 
@@ -126,7 +130,6 @@ export default class PengajuanCuti extends Component {
       <View style={styles.pages}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View>
-            <Inputan label="NIK" value={nik} disabled />
             <Inputan label="Nama" value={nama_karyawan} disabled />
             <Pilihan
               label="Jenis Cuti"
@@ -134,36 +137,6 @@ export default class PengajuanCuti extends Component {
               selectedValue={jenisCuti}
               onValueChange={jenisCuti => this.ubahJenisCuti(jenisCuti)}
             />
-
-            {/* <View style={styles.inputFoto}>
-              <Text style={styles.label}>File :</Text>
-              <View style={styles.wrapperUpload}>
-                <Image
-                  source={avatar ? {uri: avatar} : DefaultImage}
-                  style={styles.foto}
-                />
-                <View style={styles.tombolChangePhoto}>
-                  <Tombol
-                    title="Select File"
-                    type="text"
-                    padding={7}
-                    onPress={() => this.getImage()}
-                  />
-                </View>
-              </View>
-            </View> */}
-
-            {/* <View style={styles.submit}>
-              <Tombol
-                title="Submit"
-                type="textIcon"
-                icon="submit"
-                padding={responsiveHeight(15)}
-                fontSize={18}
-                loading={storePengajuanCutiLoading}
-                onPress={() => this.storePengajuan()}
-              />
-            </View> */}
           </View>
 
           <View style={styles.datePicker}>
@@ -180,8 +153,8 @@ export default class PengajuanCuti extends Component {
               restrictMonthNavigation ={true}
               onDateChange={this.onDateChange}
             />
-            {/* <Text> START:{startDate}</Text>
-            <Text> END:{endDate}</Text> */}
+            {/* <Inputan label="Tgl Awal" value={startDate} disabled /> */}
+            {/* <Inputan label="Tgl AKhir" value={endDate} disabled /> */}
           </View>
 
           <View>
@@ -226,6 +199,13 @@ export default class PengajuanCuti extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  storePengajuanCutiLoading: state.PengajuanCutiReducer.storePengajuanCutiLoading,
+  storePengajuanCutiResult: state.PengajuanCutiReducer.storePengajuanCutiResult,
+  storePengajuanCutiError: state.PengajuanCutiReducer.storePengajuanCutiError,
+});
+export default connect(mapStateToProps, null)(PengajuanCuti);
 
 const styles = StyleSheet.create({
   datePicker: {
