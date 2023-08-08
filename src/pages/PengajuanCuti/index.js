@@ -5,7 +5,18 @@ import {Inputan, Tombol, HeaderComponent, Pilihan} from '../../components';
 import {connect} from 'react-redux';
 import { storePengajuan } from '../../actions/PengajuanAction';
 
-const countries = ["Cuti Tahunan", "Cuti Melahrkan"]
+const countries = [
+  "Cuti Tahunan",
+  "Cuti Menikah (Special Leave)",
+  "Cuti Melahirkan Anak (Special Leave)",
+  "Cuti Khitan Anak (Special Leave)",
+  "Cuti Baptis Anak (Special Leave)",
+  "Cuti Istri Melahirkan / Keguguran (Special Leave)",
+  "Cuti Keluarga Meninggal (Special Leave)",
+  "Cuti Keluarga Dalam Satu Rumah Meninggal (Special Leave)",
+  "Cuti Ibadah Haji"
+]
+
 class PengajuanCuti extends Component {
   constructor(props) {
     super(props);

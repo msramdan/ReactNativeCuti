@@ -16,7 +16,7 @@ export const storePengajuan = (jenisCuti, alasan, karyawan_id) => {
   return dispatch => {
     // LOADING
     dispatchLoading(dispatch, STORE_PENGAJUAN);
-    console.log('sini');
+    console.log(karyawan_id);
     // axios({S
     //     method: 'post',
     //     url: URL_API +
