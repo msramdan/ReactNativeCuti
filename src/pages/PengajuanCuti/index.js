@@ -7,25 +7,26 @@ import {
   responsiveHeight,
   responsiveWidth,
 } from '../../utils';
-import {Inputan, Tombol, Pilihan} from '../../components';
+import {Inputan, Tombol, Pilihan, InputDate} from '../../components';
 import {connect} from 'react-redux';
-import { storePengajuan } from '../../actions/PengajuanAction';
+import {storePengajuan} from '../../actions/PengajuanAction';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {DefaultImage} from '../../assets';
+import CalendarPicker from 'react-native-calendar-picker';
 
 const countries = [
-  "Cuti Tahunan",
-  "Cuti Menikah (Special Leave)",
-  "Cuti Melahirkan Anak (Special Leave)",
-  "Cuti Khitan Anak (Special Leave)",
-  "Cuti Baptis Anak (Special Leave)",
-  "Cuti Istri Melahirkan / Keguguran (Special Leave)",
-  "Cuti Keluarga Meninggal (Special Leave)",
-  "Cuti Keluarga Dalam Satu Rumah Meninggal (Special Leave)",
-  "Cuti Ibadah Haji"
-]
+  'Cuti Tahunan',
+  'Cuti Menikah (Special Leave)',
+  'Cuti Melahirkan Anak (Special Leave)',
+  'Cuti Khitan Anak (Special Leave)',
+  'Cuti Baptis Anak (Special Leave)',
+  'Cuti Istri Melahirkan / Keguguran (Special Leave)',
+  'Cuti Keluarga Meninggal (Special Leave)',
+  'Cuti Keluarga Dalam Satu Rumah Meninggal (Special Leave)',
+  'Cuti Ibadah Haji',
+];
 
-class PengajuanCuti extends Component {
+export default class PengajuanCuti extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,16 +34,18 @@ class PengajuanCuti extends Component {
       alasan: '',
       avatar: false,
       avatarForDB: '',
-      avatarLama: '',
       updateAvatar: false,
+      selectedStartDate: null,
+      selectedEndDate: null,
     };
+    this.onDateChange = this.onDateChange.bind(this);
   }
 
   componentDidMount() {
     this.getUserData();
   }
 
-  ubahJenisCuti = (jenisCuti) => {
+  ubahJenisCuti = jenisCuti => {
     this.setState({
       jenisCuti: jenisCuti,
     });
@@ -59,10 +62,30 @@ class PengajuanCuti extends Component {
     });
   };
 
+  onDateChange(date, type) {
+    if (type === 'END_DATE') {
+      this.setState({
+        selectedEndDate: date,
+      });
+    } else {
+      this.setState({
+        selectedStartDate: date,
+        selectedEndDate: null,
+      });
+    }
+  }
+
   getImage = () => {
     launchImageLibrary(
-      {quality: 1, maxWidth: 500, maxHeight: 500, includeBase64: true, selectionLimit: 1, cameraType: 'front'},
-      (response) => {
+      {
+        quality: 1,
+        maxWidth: 500,
+        maxHeight: 500,
+        includeBase64: true,
+        selectionLimit: 1,
+        cameraType: 'front',
+      },
+      response => {
         if (response.didCancel || response.errorCode || response.errorMessage) {
           Alert.alert('Error', 'Maaf sepertinya anda tidak memilih fotonya');
         } else {
@@ -72,16 +95,15 @@ class PengajuanCuti extends Component {
           this.setState({
             avatar: source,
             avatarForDB: fileString,
-            updateAvatar: true
+            updateAvatar: true,
           });
         }
       },
     );
   };
 
-
   storePengajuan = () => {
-    const {jenisCuti , alasan , id} = this.state;
+    const {jenisCuti, alasan, id} = this.state;
     if (jenisCuti && alasan) {
       this.props.dispatch(storePengajuan(jenisCuti, alasan, id));
       Alert.alert('Sukses', 'Pengajuan cuti berhasil dikirim');
@@ -90,36 +112,93 @@ class PengajuanCuti extends Component {
       Alert.alert('Error', 'Jenis Cuti, Alasan harus diisi');
     }
   };
+
   render() {
     const {nama_karyawan, nik, jenisCuti, avatar} = this.state;
     const {storePengajuanCutiLoading} = this.props;
+    const {selectedStartDate, selectedEndDate} = this.state;
+    const minDate = new Date(); // Today
+    const maxDate = new Date(2040, 6, 3);
+    const startDate = selectedStartDate ? selectedStartDate.toString() : '';
+    const endDate = selectedEndDate ? selectedEndDate.toString() : '';
+
     return (
-      <View>
-        <View style={styles.form}>
+      <View style={styles.pages}>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View>
             <Inputan label="NIK" value={nik} disabled />
             <Inputan label="Nama" value={nama_karyawan} disabled />
             <Pilihan
-                label="Jenis Cuti"
-                datas={countries}
-                selectedValue={jenisCuti}
-                onValueChange={(jenisCuti) => this.ubahJenisCuti(jenisCuti)}
+              label="Jenis Cuti"
+              datas={countries}
+              selectedValue={jenisCuti}
+              onValueChange={jenisCuti => this.ubahJenisCuti(jenisCuti)}
+            />
+
+            {/* <View style={styles.inputFoto}>
+              <Text style={styles.label}>File :</Text>
+              <View style={styles.wrapperUpload}>
+                <Image
+                  source={avatar ? {uri: avatar} : DefaultImage}
+                  style={styles.foto}
+                />
+                <View style={styles.tombolChangePhoto}>
+                  <Tombol
+                    title="Select File"
+                    type="text"
+                    padding={7}
+                    onPress={() => this.getImage()}
+                  />
+                </View>
+              </View>
+            </View> */}
+
+            {/* <View style={styles.submit}>
+              <Tombol
+                title="Submit"
+                type="textIcon"
+                icon="submit"
+                padding={responsiveHeight(15)}
+                fontSize={18}
+                loading={storePengajuanCutiLoading}
+                onPress={() => this.storePengajuan()}
               />
-            <Inputan label="Alasan" textarea onChangeText={alasan => this.setState({alasan})} />
+            </View> */}
+          </View>
+
+          <View style={styles.datePicker}>
+            <Text style={styles.label}>Pilih Tanggal :</Text>
+            <CalendarPicker style={styles.CalendarPicker}   
+              startFromMonday={true}
+              allowRangeSelection={true}
+              minDate={minDate}
+              maxDate={maxDate}
+              width={responsiveWidth(350)}
+              todayBackgroundColor="#f2e6ff"
+              selectedDayColor="#7300e6"
+              selectedDayTextColor="#FFFFFF"
+              restrictMonthNavigation ={true}
+              onDateChange={this.onDateChange}
+            />
+            {/* <Text> START:{startDate}</Text>
+            <Text> END:{endDate}</Text> */}
+          </View>
+
+          <View>
+            <Inputan
+              label="Alasan"
+              textarea
+              onChangeText={alasan => this.setState({alasan})}
+            />
           </View>
 
           <View style={styles.inputFoto}>
             <Text style={styles.label}>File :</Text>
             <View style={styles.wrapperUpload}>
-            <Image
-                source={
-                  avatar
-                    ? {uri: avatar}
-                    : DefaultImage
-                }
+              <Image
+                source={avatar ? {uri: avatar} : DefaultImage}
                 style={styles.foto}
               />
-
               <View style={styles.tombolChangePhoto}>
                 <Tombol
                   title="Select File"
@@ -142,25 +221,24 @@ class PengajuanCuti extends Component {
               onPress={() => this.storePengajuan()}
             />
           </View>
-        </View>
+        </ScrollView>
       </View>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  storePengajuanCutiLoading: state.PengajuanCutiReducer.storePengajuanCutiLoading,
-  storePengajuanCutiResult: state.PengajuanCutiReducer.storePengajuanCutiResult,
-  storePengajuanCutiError: state.PengajuanCutiReducer.storePengajuanCutiError,
-});
-export default connect(mapStateToProps, null)(PengajuanCuti);
-
 const styles = StyleSheet.create({
-  form: {
+  datePicker: {
+    marginTop:20,
+    marginBottom:10,
+  },
+  pages: {
+    flex: 1,
     backgroundColor: colors.white,
     paddingHorizontal: 30,
     paddingTop: 10,
   },
+
   inputFoto: {
     marginTop: 20,
   },
@@ -185,4 +263,5 @@ const styles = StyleSheet.create({
   submit: {
     marginVertical: 30,
   },
+
 });
