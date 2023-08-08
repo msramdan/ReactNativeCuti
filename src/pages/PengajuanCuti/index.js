@@ -1,11 +1,17 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Alert} from 'react-native';
-import {colors, responsiveHeight, fonts, getData} from '../../utils';
-import {Inputan, Tombol, HeaderComponent, Pilihan} from '../../components';
+import {Text, StyleSheet, View, ScrollView, Image, Alert} from 'react-native';
+import {
+  colors,
+  fonts,
+  getData,
+  responsiveHeight,
+  responsiveWidth,
+} from '../../utils';
+import {Inputan, Tombol, Pilihan} from '../../components';
 import {connect} from 'react-redux';
 import { storePengajuan } from '../../actions/PengajuanAction';
-
-
+import {launchImageLibrary} from 'react-native-image-picker';
+import {DefaultImage} from '../../assets';
 
 const countries = [
   "Cuti Tahunan",
@@ -25,6 +31,10 @@ class PengajuanCuti extends Component {
     this.state = {
       jenisCuti: '',
       alasan: '',
+      avatar: false,
+      avatarForDB: '',
+      avatarLama: '',
+      updateAvatar: false,
     };
   }
 
@@ -49,6 +59,27 @@ class PengajuanCuti extends Component {
     });
   };
 
+  getImage = () => {
+    launchImageLibrary(
+      {quality: 1, maxWidth: 500, maxHeight: 500, includeBase64: true, selectionLimit: 1, cameraType: 'front'},
+      (response) => {
+        if (response.didCancel || response.errorCode || response.errorMessage) {
+          Alert.alert('Error', 'Maaf sepertinya anda tidak memilih fotonya');
+        } else {
+          const source = response.assets[0].uri;
+          const fileString = `data:${response.assets[0].type};base64,${response.assets[0].base64}`;
+
+          this.setState({
+            avatar: source,
+            avatarForDB: fileString,
+            updateAvatar: true
+          });
+        }
+      },
+    );
+  };
+
+
   storePengajuan = () => {
     const {jenisCuti , alasan , id} = this.state;
     if (jenisCuti && alasan) {
@@ -60,7 +91,7 @@ class PengajuanCuti extends Component {
     }
   };
   render() {
-    const {nama_karyawan, nik, jenisCuti} = this.state;
+    const {nama_karyawan, nik, jenisCuti, avatar} = this.state;
     const {storePengajuanCutiLoading} = this.props;
     return (
       <View>
@@ -76,6 +107,30 @@ class PengajuanCuti extends Component {
               />
             <Inputan label="Alasan" textarea onChangeText={alasan => this.setState({alasan})} />
           </View>
+
+          <View style={styles.inputFoto}>
+            <Text style={styles.label}>File :</Text>
+            <View style={styles.wrapperUpload}>
+            <Image
+                source={
+                  avatar
+                    ? {uri: avatar}
+                    : DefaultImage
+                }
+                style={styles.foto}
+              />
+
+              <View style={styles.tombolChangePhoto}>
+                <Tombol
+                  title="Select File"
+                  type="text"
+                  padding={7}
+                  onPress={() => this.getImage()}
+                />
+              </View>
+            </View>
+          </View>
+
           <View style={styles.submit}>
             <Tombol
               title="Submit"
@@ -105,6 +160,27 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     paddingHorizontal: 30,
     paddingTop: 10,
+  },
+  inputFoto: {
+    marginTop: 20,
+  },
+  foto: {
+    width: responsiveWidth(100),
+    height: responsiveWidth(100),
+    borderRadius: 5,
+  },
+  label: {
+    fontSize: 18,
+    fontFamily: fonts.primary.regular,
+  },
+  wrapperUpload: {
+    flexDirection: 'row',
+    marginTop: 10,
+    alignItems: 'center',
+  },
+  tombolChangePhoto: {
+    marginLeft: 20,
+    flex: 1,
   },
   submit: {
     marginVertical: 30,
