@@ -20,15 +20,15 @@ const CardDaftarCuti = ({statusPengajuan , id}) => {
       return <IconHapus />
     }
   }
-  // const staticImage = require("https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/800px-User_icon_2.svg.png");
   return (
     <View style={styles.container}>
       <Image source={{uri:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/800px-User_icon_2.svg.png'}}style={styles.gambar} />
       <View style={styles.desc}>
-        <Text style={styles.nama}>{statusPengajuan.jenis_cuti}</Text>
-        <Text style={styles.textBold}>NIK : {statusPengajuan.status_pengajuan}</Text>
-        <Text style={styles.textBold}>Departemen : {statusPengajuan.tanggal_pengajuan}</Text>
-        <Text style={styles.textBold}>Jabatan : {statusPengajuan.tanggal_awal} s.d {statusPengajuan.tanggal_akhir}</Text>
+        <Text style={styles.nama}>{statusPengajuan.nama_karyawan}</Text>
+        <Text style={styles.textBold}>NIK : {statusPengajuan.nik}</Text>
+        <Text style={styles.textBold}>Jenis Cuti : {statusPengajuan.jenis_cuti}</Text>
+        <Text style={styles.textBold}>Departemen : {statusPengajuan.nama_departemen}</Text>
+        <Text style={styles.textBold}>Jabatan : {statusPengajuan.nama_jabatan}</Text>
       </View>
     </View>
   );

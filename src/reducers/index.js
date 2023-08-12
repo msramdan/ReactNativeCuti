@@ -4,6 +4,8 @@ import KontakReducer from './kontak'
 import ProfileReducer from './profile'
 import StatusPengajuanReducer from './pengajuan'
 import PengajuanCutiReducer from './pengajuanCuti'
+import sisaCutiReducer from './sisaCuti'
+import daftarCutiReducer from './daftarCuti'
 
 const rootReducer = combineReducers({
     KontakReducer,
@@ -11,6 +13,8 @@ const rootReducer = combineReducers({
     ProfileReducer,
     StatusPengajuanReducer,
     PengajuanCutiReducer,
+    sisaCutiReducer,
+    daftarCutiReducer,
 });
 
 export default rootReducer

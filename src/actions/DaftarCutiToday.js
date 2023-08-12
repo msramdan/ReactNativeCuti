@@ -17,28 +17,28 @@ import {
     API_TIMEOUT
   } from '../utils/constant';
   
-  export const LIST_PENGAJUAN = 'LIST_PENGAJUAN';
+  export const DAFTAR_CUTI_TODAY = 'DAFTAR_CUTI_TODAY';
   
-  export const getListPengajuan = data => {
+  export const daftarCutiToday = () => {
     return dispatch => {
       // LOADING
-      dispatchLoading(dispatch, LIST_PENGAJUAN);
+      dispatchLoading(dispatch, DAFTAR_CUTI_TODAY);
       axios({
           method: 'get',
-          url: URL_API + 'getListPengajuan?id=' + data,
+          url: URL_API + 'daftarCutiToday',
           timeout: API_TIMEOUT,
           headers: API_HEADER,
         })
         .then(response => {
           if (response.status !== 200) {
-            dispatchError(dispatch, LIST_PENGAJUAN, response);
+            dispatchError(dispatch, DAFTAR_CUTI_TODAY, response);
             alert(error);
           } else {
-            dispatchSuccess(dispatch, LIST_PENGAJUAN, response.data.data);
+            dispatchSuccess(dispatch, DAFTAR_CUTI_TODAY, response.data.data);
           }
         })
         .catch(error => {
-          dispatchError(dispatch, LIST_PENGAJUAN, error.message);
+          dispatchError(dispatch, DAFTAR_CUTI_TODAY, error.message);
           alert(error.message);
         });
     };

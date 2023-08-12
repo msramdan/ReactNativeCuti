@@ -18,7 +18,7 @@ import {connect} from 'react-redux';class Profile extends Component {
   componentDidMount() {
     this.getUserData();
   }
-
+  
   getUserData = () => {
     getData('user').then((res) => {
       const data = res;

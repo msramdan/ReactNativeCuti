@@ -11,29 +11,31 @@ import {CardDaftarCuti} from '../../kecil';
 
 
 const ListDaftarCuti = ({
-  getListPengajuanLoading,
-  getListPengajuanResult,
-  getListPengajuanError,
+  daftarCutiTodayLoading,
+  daftarCutiTodayResult,
+  daftarCutiTodayError,
 }) => {
+  console.log(daftarCutiTodayResult);
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
-        {getListPengajuanResult ? (
-          Object.keys(getListPengajuanResult).map(key => {
+        {daftarCutiTodayResult ? (
+          Object.keys(daftarCutiTodayResult).map(key => {
+            
             return (
               <CardDaftarCuti
-                statusPengajuan={getListPengajuanResult[key]}
+                statusPengajuan={daftarCutiTodayResult[key]}
                 key={key}
                 id={key}
               />
             );
           })
-        ) : getListPengajuanLoading ? (
+        ) : daftarCutiTodayLoading ? (
           <View style={styles.loading}>
             <ActivityIndicator color={colors.primary} />
           </View>
-        ) : getListPengajuanError ? (
-          <Text>{getListPengajuanError}</Text>
+        ) : daftarCutiTodayError ? (
+          <Text>{daftarCutiTodayError}</Text>
         ) : (
           <Text>Data Kosong</Text>
         )}

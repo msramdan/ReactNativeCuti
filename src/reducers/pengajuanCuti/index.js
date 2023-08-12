@@ -1,4 +1,4 @@
-import {storePengajuanCuti_KONTAK} from '../../actions/AuthAction';
+import {STORE_PENGAJUAN} from '../../actions/AuthAction';
 
 
 const initialState = {
@@ -9,7 +9,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case storePengajuanCuti_KONTAK:
+    case STORE_PENGAJUAN:
       return {
         ...state,
         storePengajuanCutiLoading: action.payload.loading,

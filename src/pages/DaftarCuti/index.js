@@ -3,14 +3,15 @@ import {Text, StyleSheet, View} from 'react-native';
 import { ListDaftarCuti} from '../../components';
 import {colors, fonts, getData} from '../../utils';
 import {connect} from 'react-redux';
-import { getListPengajuan } from '../../actions/ListPengajuan';
+import { daftarCutiToday } from '../../actions/DaftarCutiToday';
+
 
 
 class DaftarCuti extends Component {
   componentDidMount() {
     getData('user').then((res) => {
       if (res) {
-        this.props.dispatch(getListPengajuan(res.id));
+        this.props.dispatch(daftarCutiToday());
       } else {
         this.props.navigation.replace('Login');
       }
@@ -18,7 +19,7 @@ class DaftarCuti extends Component {
   }
 
   render() {
-    const {getListPengajuanResult} = this.props;
+    const {daftarCutiTodayResult} = this.props;
     return (
       <View style={styles.page}>
         <ListDaftarCuti {...this.props} />
@@ -28,9 +29,9 @@ class DaftarCuti extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  getListPengajuanLoading: state.StatusPengajuanReducer.getListPengajuanLoading,
-  getListPengajuanResult: state.StatusPengajuanReducer.getListPengajuanResult,
-  getListPengajuanError: state.StatusPengajuanReducer.getListPengajuanError,
+  daftarCutiTodayLoading: state.daftarCutiReducer.daftarCutiTodayLoading,
+  daftarCutiTodayResult: state.daftarCutiReducer.daftarCutiTodayResult,
+  daftarCutiTodayError: state.daftarCutiReducer.daftarCutiTodayError,
 });
 export default connect(mapStateToProps, null)(DaftarCuti);
 

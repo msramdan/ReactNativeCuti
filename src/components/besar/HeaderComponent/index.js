@@ -1,14 +1,25 @@
 import React, {Component} from 'react';
 import {
+  Alert,
   StyleSheet,
   View,
   TextInput,
   Text,
   TouchableOpacity,
 } from 'react-native';
-import {clearStorage, colors, fonts, getData, responsiveHeight} from '../../../utils';
+import {
+  API_HEADER,
+  API_TIMEOUT,
+  URL_API,
+  clearStorage,
+  colors,
+  fonts,
+  getData,
+  responsiveHeight,
+} from '../../../utils';
 import {IconLogout, IconUserLog} from '../../../assets';
 import {connect} from 'react-redux';
+import axios from 'axios';
 
 class HeaderComponent extends Component {
   constructor(props) {
@@ -16,31 +27,32 @@ class HeaderComponent extends Component {
     this.state = {
       id: '',
       nama_karyawan: '',
+      sisaCuti: 0,
     };
   }
 
   componentDidMount() {
-    this.getUserData();
-  }
-
-  componentDidUpdate() {
-    this.getUserData();
-  }
-  getUserData = () => {
-    getData('user').then((res) => {
+    getData('user').then(res => {
       const data = res;
-      this.setState({
-        id: data.id,
-        nama_karyawan: data.nama_karyawan,
+      axios({
+        method: 'get',
+        url: URL_API + 'sisaCuti?id=' + data.id,
+        timeout: API_TIMEOUT,
+        headers: API_HEADER,
+      }).then(response => {
+        this.setState({
+          id: data.id,
+          nama_karyawan: data.nama_karyawan,
+          sisaCuti: response.data.data,
+        });
       });
     });
-  };
+  }
+
 
   render() {
-    const {navigation} = this.props;
-    const {
-      nama_karyawan,
-    } = this.state;
+    const {navigation, getSisaCutiResult} = this.props;
+    const {nama_karyawan, sisaCuti} = this.state;
     const onSubmit = () => {
       clearStorage();
       navigation.replace('Login');
@@ -50,13 +62,12 @@ class HeaderComponent extends Component {
         <View style={styles.wrapperHeader}>
           <IconUserLog />
           <View style={styles.welcomSection}>
-          <Text style={styles.welcome}>{nama_karyawan}</Text>
-            <Text style={styles.welcome}>Sisa Cuti Tahunan : 10 </Text>
+            <Text style={styles.welcome}>{nama_karyawan}</Text>
+            <Text style={styles.welcome}>Sisa Cuti Tahunan : {sisaCuti} </Text>
           </View>
           <View style={styles.logoutSection}>
             <Text style={styles.logout}> Logout</Text>
-            <TouchableOpacity
-              onPress={() => onSubmit()}>
+            <TouchableOpacity onPress={() => onSubmit()}>
               <IconLogout />
             </TouchableOpacity>
           </View>
@@ -66,7 +77,11 @@ class HeaderComponent extends Component {
   }
 }
 
-export default connect()(HeaderComponent);
+const mapStateToProps = state => ({
+  getSisaCutiResult: state.sisaCutiReducer.getSisaCutiResult,
+});
+
+export default connect(mapStateToProps, null)(HeaderComponent);
 
 const styles = StyleSheet.create({
   container: {
