@@ -16,6 +16,7 @@ export const STORE_PENGAJUAN = 'STORE_PENGAJUAN';
 export const storePengajuan = data => {
   return dispatch => {
     // LOADING
+    console.log(data);
     dispatchLoading(dispatch, STORE_PENGAJUAN);
     var a = moment(data.selectedStartDate).format("Y-M-D");
     var b = moment(data.selectedEndDate).format("Y-M-D");
@@ -33,16 +34,19 @@ export const storePengajuan = data => {
           '&selectedEndDate=' +
           b+
           '&avatar=' +
-          data.avatar+
-          '&avatarForDB=' +
-          data.avatarForDB,
+          data.avatar,
         timeout: API_TIMEOUT,
         headers: API_HEADER,
+        data: {
+          avatarForDB: data.avatarForDB,
+        },
       })
       .then(response => {
+        console.log('success');
         dispatchSuccess(dispatch, STORE_PENGAJUAN, response.data.data);
       })
       .catch(error => {
+        console.log('error');
         dispatchError(dispatch, STORE_PENGAJUAN, error.message);
         alert(error.response.data.message);
       });
