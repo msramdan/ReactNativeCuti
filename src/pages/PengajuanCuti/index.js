@@ -111,7 +111,7 @@ class PengajuanCuti extends Component {
     }else if(alasan=='' || alasan==null ){
       Alert.alert('Error', 'Alasan harus diisi');
     }else {
-      this.props.dispatch(storePengajuan(jenisCuti, alasan, id, selectedStartDate, selectedEndDate));
+      this.props.dispatch(storePengajuan(this.state));
       Alert.alert('Sukses', 'Pengajuan cuti berhasil dikirim');
       this.props.navigation.replace('MainApp');
     }

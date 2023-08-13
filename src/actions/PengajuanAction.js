@@ -13,27 +13,25 @@ import {
 } from '../utils';
 export const STORE_PENGAJUAN = 'STORE_PENGAJUAN';
 
-export const storePengajuan = (jenis_cuti, alasan, karyawan_id, selectedStartDate, selectedEndDate) => {
+export const storePengajuan = data => {
   return dispatch => {
     // LOADING
     dispatchLoading(dispatch, STORE_PENGAJUAN);
-    var a = moment(selectedStartDate).format("Y-M-D");
-    var b = moment(selectedEndDate).format("Y-M-D");
+    var a = moment(data.selectedStartDate).format("Y-M-D");
+    var b = moment(data.selectedEndDate).format("Y-M-D");
     axios({
         method: 'post',
-        url: URL_API +
-          'formPengajuan?jenis_cuti=' +
-          jenis_cuti +
-          '&alasan=' +
-          alasan +
-          '&karyawan_id=' +
-          karyawan_id +
-          '&selectedStartDate=' +
-          a +
-          '&selectedEndDate=' +
-          b,
+        url: URL_API + 'formPengajuan',
         timeout: API_TIMEOUT,
         headers: API_HEADER,
+        data: {
+          jenis_cuti: data.jenis_cuti,
+          alasan: data.alasan,
+          karyawan_id: data.karyawan_id,
+          selectedStartDate: a,
+          selectedEndDate: b,
+          avatar: data.updateAvatar ? data.avatarForDB : data.avatarLama,
+        },
       })
       .then(response => {
         dispatchSuccess(dispatch, STORE_PENGAJUAN, response.data.data);

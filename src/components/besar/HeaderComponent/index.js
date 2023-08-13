@@ -32,23 +32,38 @@ class HeaderComponent extends Component {
   }
 
   componentDidMount() {
-    getData('user').then(res => {
-      const data = res;
-      axios({
-        method: 'get',
-        url: URL_API + 'sisaCuti?id=' + data.id,
-        timeout: API_TIMEOUT,
-        headers: API_HEADER,
-      }).then(response => {
-        this.setState({
-          id: data.id,
-          nama_karyawan: data.nama_karyawan,
-          sisaCuti: response.data.data,
-        });
-      });
-    });
+    this.getUserData();
+    this.getDataCuti();
   }
 
+  // componentDidUpdate(prevProps) {
+  //   // console.log('Relod')
+  //   this.getUserData();
+  // }
+
+  getUserData = () => {
+    getData('user').then(res => {
+      const data = res;
+      this.setState({
+        id: data.id,
+        nama_karyawan: data.nama_karyawan,
+      });
+    });
+  };
+
+  getDataCuti = () => {
+    const {id} = this.state;
+    axios({
+      method: 'get',
+      url: URL_API + 'sisaCuti?id=' + id,
+      timeout: API_TIMEOUT,
+      headers: API_HEADER,
+    }).then(response => {
+      this.setState({
+        sisaCuti: response.data.data,
+      });
+    });
+  };
 
   render() {
     const {navigation, getSisaCutiResult} = this.props;
