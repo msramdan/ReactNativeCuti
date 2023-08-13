@@ -16,10 +16,10 @@ export const dummyMenu = [
     gambar: <IconChangePassword />,
     halaman: 'ChangePassword'
   },
-  {
-    id: 3,
-    nama: 'Sign Out',
-    gambar: <IconSignOut />,
-    halaman: 'Login'
-  },
+  // {
+  //   id: 3,
+  //   nama: 'Sign Out',
+  //   gambar: <IconSignOut />,
+  //   halaman: 'Login'
+  // },
 ];

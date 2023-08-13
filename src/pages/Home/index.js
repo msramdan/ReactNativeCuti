@@ -6,13 +6,21 @@ import BannerSlider from '../../components/besar/BannerSlider';
 import ListJerseys from '../../components/besar/ListJerseys';
 import {dummyJerseys} from '../../data';
 import {connect} from 'react-redux';
-import { fonts } from '../../utils';
+import { fonts, getData } from '../../utils';
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       jerseys: dummyJerseys,
     };
+  }
+
+  componentDidMount() {
+    getData('user').then((res) => {
+      if (!res) {
+        this.props.navigation.replace('Login');
+      }
+    });
   }
 
   render() {

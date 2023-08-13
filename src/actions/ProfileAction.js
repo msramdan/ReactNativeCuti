@@ -47,9 +47,10 @@ export const updateProfile = data => {
           dispatchError(dispatch, UPDATE_PROFILE, response);
           alert(error);
         } else {
-          dispatchSuccess(dispatch, UPDATE_PROFILE, response.data.data);
           clearStorage();
-          storeData('user', dataBaru);
+          Alert.alert('Sukses', 'Update Profile Success');
+          dispatchSuccess(dispatch, UPDATE_PROFILE, response.data.data);
+          
         }
       })
       .catch(error => {
@@ -73,9 +74,10 @@ export const changePassword = data => {
         },
       })
       .then(response => {
-        dispatchSuccess(dispatch, CHANGE_PASSWORD, response.data.data);
+        clearStorage();
         Alert.alert('Sukses', 'Change Password Success');
-        // clearStorage();
+        dispatchSuccess(dispatch, CHANGE_PASSWORD, response.data.data);
+        
       })
       .catch(function (error) {
         dispatchError(dispatch, CHANGE_PASSWORD, error.response.data.message);

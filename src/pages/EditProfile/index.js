@@ -31,8 +31,7 @@ class EditProfile extends Component {
   componentDidUpdate(prevProps) {
     const {updateProfileResult} = this.props;
     if (prevProps.updateProfileResult !== updateProfileResult) {
-      Alert.alert('Sukses', 'Update Profile Success');
-      this.props.navigation.replace('MainApp');
+      this.props.navigation.replace('Login');
     }
   }
 

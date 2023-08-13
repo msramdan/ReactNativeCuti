@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import { StyleSheet, View,Alert} from 'react-native';
+import {StyleSheet, View, Alert} from 'react-native';
 import {colors, responsiveHeight, fonts, getData} from '../../utils';
 import {Inputan, Tombol, HeaderComponent} from '../../components';
 import {connect} from 'react-redux';
-import { storeKontak } from '../../actions/KontakAction';
+import {storeKontak} from '../../actions/KontakAction';
 
 class Kontak extends Component {
   constructor(props) {
@@ -21,11 +21,15 @@ class Kontak extends Component {
   getUserData = () => {
     getData('user').then(res => {
       const data = res;
-      this.setState({
-        id: data.id,
-        nik: data.nik,
-        nama_karyawan: data.nama_karyawan,
-      });
+      if (data) {
+        this.setState({
+          id: data.id,
+          nik: data.nik,
+          nama_karyawan: data.nama_karyawan,
+        });
+      } else {
+        this.props.navigation.replace('Login');
+      }
     });
   };
 
@@ -41,16 +45,23 @@ class Kontak extends Component {
   };
 
   render() {
-    const {navigation,storeLoading} = this.props;
-    const {nama_karyawan,nik} = this.state;
+    const {navigation, storeLoading} = this.props;
+    const {nama_karyawan, nik} = this.state;
     return (
       <View>
         <HeaderComponent navigation={navigation} />
         <View style={styles.form}>
           <View>
             <Inputan label="Nama" value={nama_karyawan} disabled />
-            <Inputan label="Judul" onChangeText={judul => this.setState({judul})} />
-            <Inputan label="Deskripsi" textarea onChangeText={deskripsi => this.setState({deskripsi})} />
+            <Inputan
+              label="Judul"
+              onChangeText={judul => this.setState({judul})}
+            />
+            <Inputan
+              label="Deskripsi"
+              textarea
+              onChangeText={deskripsi => this.setState({deskripsi})}
+            />
           </View>
           <View style={styles.submit}>
             <Tombol

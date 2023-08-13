@@ -53,11 +53,15 @@ class PengajuanCuti extends Component {
   getUserData = () => {
     getData('user').then(res => {
       const data = res;
-      this.setState({
-        id: data.id,
-        nik: data.nik,
-        nama_karyawan: data.nama_karyawan,
-      });
+      if (data) {
+        this.setState({
+          id: data.id,
+          nik: data.nik,
+          nama_karyawan: data.nama_karyawan,
+        });
+      } else {
+        this.props.navigation.replace('Login');
+      }
     });
   };
 
@@ -101,16 +105,17 @@ class PengajuanCuti extends Component {
   };
 
   storePengajuan = () => {
-    const {jenisCuti, alasan, id, selectedStartDate,selectedEndDate } = this.state;
-    if(jenisCuti=='' || jenisCuti==null ){
+    const {jenisCuti, alasan, id, selectedStartDate, selectedEndDate} =
+      this.state;
+    if (jenisCuti == '' || jenisCuti == null) {
       Alert.alert('Error', 'Jenis cuti belum dipilih');
-    }else if(selectedStartDate=='' || selectedStartDate==null ){
+    } else if (selectedStartDate == '' || selectedStartDate == null) {
       Alert.alert('Error', 'Tanggal awal belum dipilih');
-    }else if(selectedEndDate=='' || selectedEndDate==null ){
+    } else if (selectedEndDate == '' || selectedEndDate == null) {
       Alert.alert('Error', 'Tanggal akhir belum dipilih');
-    }else if(alasan=='' || alasan==null ){
+    } else if (alasan == '' || alasan == null) {
       Alert.alert('Error', 'Alasan harus diisi');
-    }else {
+    } else {
       this.props.dispatch(storePengajuan(this.state));
       Alert.alert('Sukses', 'Pengajuan cuti berhasil dikirim');
       this.props.navigation.replace('MainApp');
@@ -141,7 +146,8 @@ class PengajuanCuti extends Component {
 
           <View style={styles.datePicker}>
             <Text style={styles.label}>Pilih Tanggal :</Text>
-            <CalendarPicker style={styles.CalendarPicker}   
+            <CalendarPicker
+              style={styles.CalendarPicker}
               startFromMonday={true}
               allowRangeSelection={true}
               minDate={minDate}
@@ -150,7 +156,7 @@ class PengajuanCuti extends Component {
               todayBackgroundColor="#f2e6ff"
               selectedDayColor="#7300e6"
               selectedDayTextColor="#FFFFFF"
-              restrictMonthNavigation ={true}
+              restrictMonthNavigation={true}
               onDateChange={this.onDateChange}
             />
             {/* <Inputan label="Tgl Awal" value={startDate} disabled /> */}
@@ -201,7 +207,8 @@ class PengajuanCuti extends Component {
 }
 
 const mapStateToProps = state => ({
-  storePengajuanCutiLoading: state.PengajuanCutiReducer.storePengajuanCutiLoading,
+  storePengajuanCutiLoading:
+    state.PengajuanCutiReducer.storePengajuanCutiLoading,
   storePengajuanCutiResult: state.PengajuanCutiReducer.storePengajuanCutiResult,
   storePengajuanCutiError: state.PengajuanCutiReducer.storePengajuanCutiError,
 });
@@ -209,8 +216,8 @@ export default connect(mapStateToProps, null)(PengajuanCuti);
 
 const styles = StyleSheet.create({
   datePicker: {
-    marginTop:20,
-    marginBottom:10,
+    marginTop: 20,
+    marginBottom: 10,
   },
   pages: {
     flex: 1,
@@ -243,5 +250,4 @@ const styles = StyleSheet.create({
   submit: {
     marginVertical: 30,
   },
-
 });
