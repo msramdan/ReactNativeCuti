@@ -52,16 +52,23 @@ class HeaderComponent extends Component {
   };
 
   getDataCuti = () => {
-    const {id} = this.state;
-    axios({
-      method: 'get',
-      url: URL_API + 'sisaCuti?id=' + id,
-      timeout: API_TIMEOUT,
-      headers: API_HEADER,
-    }).then(response => {
-      this.setState({
-        sisaCuti: response.data.data,
-      });
+    getData('user').then(res => {
+      const data = res;
+      if (data) {
+        const karyawan_id = data.id
+        axios({
+          method: 'get',
+          url: URL_API + 'sisaCuti?id=' + karyawan_id,
+          timeout: API_TIMEOUT,
+          headers: API_HEADER,
+        }).then(response => {
+          this.setState({
+            sisaCuti: response.data.data,
+          });
+        });
+      } else {
+        this.props.navigation.replace('Login');
+      }
     });
   };
 
